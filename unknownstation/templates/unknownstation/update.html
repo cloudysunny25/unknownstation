@@ -1,0 +1,27 @@
+{% extends 'unknownstation/base.html' %}
+{% block content %}
+<div class="post">
+  <form action="{% url 'unknownstation:update'  %}" method="post" >
+    {% csrf_token %}
+    <h1>Update Post</h1>
+    <select name="category">
+      <option value=""> 선택</option>
+      {% if category_info %}
+        {% for category in category_info %}
+          {% if category.id == post_info.category.id %}
+            <option value="{{ category.id }}" selected> {{ category.name}}</option>
+          {% else %}
+            <option value="{{ category.id }}"> {{ category.name}}</option>
+          {% endif%}
+        {% endfor %}
+      {% endif%}
+    </select>
+    <br>
+    <input type ="text" name="title" value="{{ post_info.title }}">
+    <br>
+    <textarea name="content" rows="100" cols="80" >{{ post_info.content }}</textarea>
+    <input type="hidden" name="post_id" value="{{ post_info.id }}">
+    <input type="submit" value="update">
+  </form>
+</div>  
+{% endblock %}

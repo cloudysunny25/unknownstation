@@ -1,0 +1,53 @@
+{% load static %}
+
+<html>
+  <head>
+    <title>{{ request.session.blogname }} </title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+          <h1>{{ request.session.blogname }} </h1><br>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-sm-12">
+          {% block content %}
+          {% endblock %}
+        </div>
+        <div class="col-md-4 col-sm-12">
+          {% if request.session.category_info %}
+            {% for category in request.session.category_info %}
+            <a href="">{{ category }}</a><br>
+            {% endfor %}
+          {% endif %}
+          <br>
+          <p>최근 등록된 포스트</p>
+          {% if latest_post_list %}
+            <ul>
+              {% for post in latest_post_list %}
+                  <li><a href="{% url 'unknownstation:detail' post.id %}">{{ post.title}}</a></li>
+              {% endfor %}
+              </ul>
+          {% else %}
+                <p> No posts are exist.</p>
+          {% endif %}
+          <br>
+            {% if request.session.nickname %}
+              <a href="{% url 'unknownstation:write' %}">새 포스트</a><br>
+              <a href="{% url 'unknownstation:logout' %}">logout</a>
+            {% else %}
+              <a href="{% url 'unknownstation:login' %}">login</a>
+            {% endif %}
+        </div>
+      </div> <!--row menubar -->
+      <div class="row">
+        <div class="bottom">
+          @copyright cloudysunny
+        </div>
+      </div>
+    </div><!-- container -->
+  </body>
+</html>

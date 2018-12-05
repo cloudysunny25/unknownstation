@@ -1,0 +1,17 @@
+{% extends 'unknownstation/base.html' %}
+{% block content %}
+<div class="post">
+  <p>{{ post_info.category.name }}</p>
+  <h2>{{ post_info.title }}</h2>
+  <span>{{ post_info.reg_date}}</span>
+  <div width="500px">
+    <pre>
+   {{ post_info.content }}
+   </pre>
+  </div>
+
+</div>
+{% endblock %}
+<<script type="text/javascript">
+  alert(category_info)
+</script>

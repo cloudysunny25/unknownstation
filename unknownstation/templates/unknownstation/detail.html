@@ -1,0 +1,22 @@
+{% extends 'unknownstation/base.html' %}
+{% block content %}
+<div class="post">
+  <p>{{ post_info.category.name }}</p>
+  <h2>{{ post_info.title }}</h2>
+  <span>{{ post_info.reg_date}}</span>
+  <div width="500px">
+    <pre>
+   {{ post_info.content }}
+   </pre>
+  </div>
+  {% if request.session.nickname %}
+    <a href="{% url 'unknownstation:updateView' post_info.id %}"><button>수정</button></a>
+    <form  action="{% url 'unknownstation:delete' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="post_id" value="{{ post_info.id}}">
+
+      <input type="submit" value="삭제">
+    </form>
+  {% endif %}
+</div>
+{% endblock %}
