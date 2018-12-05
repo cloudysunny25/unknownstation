@@ -4,4 +4,4 @@ __pycache__
 norangv
 /static
 .DS_Store
-settings.py
+norang/settings.py
