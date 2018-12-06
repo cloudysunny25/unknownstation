@@ -7,23 +7,58 @@ from .forms import PostForm,LoginForm
 from django.urls import reverse
 from django.contrib.sessions.backends.db import SessionStore
 from django.core import serializers
-import json
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+
 # Create your views here.
 def index(request):
-    latest_post = Post.objects.order_by('-reg_date')[:1]
-    latest_post_list = Post.objects.order_by('-reg_date')[:5]
-    user_info = User.objects.get(nickname='norang')
     blog_info = Blog.objects.get(id=6)
-    category_info = Category.objects.all()
-    category_list = [c.name for c in category_info]
-    template = loader.get_template('unknownstation/index.html')
+    user = blog_info.user
+
+    #get()은 하나의 결과값만 가져옴. 여러건을 가져올 땐 filter
+    categories = Category.objects.filter(blog_id=blog_info.id)
+    #base data
+    user_info = {'nickname':user.nickname }
+    category_list = [c.name for c in categories]
     request.session['blogname'] = blog_info.blogname
     request.session['category_info'] = category_list
+    request.session['user_info'] = user_info
+    #index data
+    paginator = Paginator(Post.objects.order_by('-reg_date'), 5)
+
+    post_list = paginator.get_page(1)
     context = {
-        'post_info': latest_post,
-        #'category_info': category_info,
-        'latest_post_list' : latest_post_list
+        'page': page,
+        'post_list' : post_list
     }
+    template = loader.get_template('unknownstation/index.html')
+    return HttpResponse(template.render(context, request))
+
+def list(request,page):
+    blog_info = Blog.objects.get(id=6)
+    user = blog_info.user
+
+    #get()은 하나의 결과값만 가져옴. 여러건을 가져올 땐 filter
+    categories = Category.objects.filter(blog_id=blog_info.id)
+    #base data
+    user_info = {'nickname':user.nickname }
+    category_list = [c.name for c in categories]
+    request.session['blogname'] = blog_info.blogname
+    request.session['category_info'] = category_list
+    request.session['user_info'] = user_info
+    #index data
+    paginator = Paginator(Post.objects.order_by('-reg_date'), 5)
+    '''
+    page = request.GET.get("page")
+    '''
+    if page is None:
+        page = 1
+
+    post_list = paginator.get_page(page)
+    context = {
+        'page': page,
+        'post_list' : post_list
+    }
+    template = loader.get_template('unknownstation/index.html')
     return HttpResponse(template.render(context, request))
 
 def detail(request, post_id):

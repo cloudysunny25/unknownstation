@@ -1,16 +1,33 @@
 {% extends 'unknownstation/base.html' %}
 {% block content %}
-<div class="post">
-  <p>{{ post_info.category.name }}</p>
-  <h2>{{ post_info.title }}</h2>
-  <span>{{ post_info.reg_date}}</span>
-  <div width="500px">
-    <pre>
-   {{ post_info.content }}
-   </pre>
+<div class="index">
+{% if post_list %}
+  {% for post in post_list %}
+  <div class="post_review">
+  <!--  <p>{{ post.category.name }}</p> -->
+    <h2>{{ post.title }}</h2>
+    <span>{{ post.reg_date}}</span>
+    <div width="500px">
+      <pre>
+     {{ post.content }}
+     </pre>
+    </div>
+
   </div>
+  {% endfor %}
+  {% if post_list.has_previous%}
+    <a href="{% url 'unknownstation:list' post_list.previous_page_number %}">prev</a>
+  {% endif %}
+    {{  page }} of {{  post_list.paginator.num_pages }}
+  {% if post_list.has_next %}
+    <a href="{% url 'unknownstation:list' post_list.next_page_number %}">next</a>
+  {% endif %}
+{% else %}
+아직 포스트가 없습니다.
+{% endif %}
 
 </div>
+
 {% endblock %}
 <<script type="text/javascript">
   alert(category_info)

@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>{{ request.session.blogname }} </title>
+    <title>{{ request.session.blogname|upper }} </title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -18,34 +18,35 @@
           {% endblock %}
         </div>
         <div class="col-md-4 col-sm-12">
-          {% if request.session.category_info %}
-            {% for category in request.session.category_info %}
-            <a href="">{{ category }}</a><br>
-            {% endfor %}
-          {% endif %}
+          <div class="user_info">
+            {{ request.session.user_info.nickname }}
+            <br>
+            django 공부용 블로그입니다.
+          </div>
           <br>
-          <p>최근 등록된 포스트</p>
-          {% if latest_post_list %}
-            <ul>
-              {% for post in latest_post_list %}
-                  <li><a href="{% url 'unknownstation:detail' post.id %}">{{ post.title}}</a></li>
+          <div class="category">
+            {% if request.session.category_info %}
+              {% for category in request.session.category_info %}
+              <a href="">{{ category }}</a><br>
               {% endfor %}
-              </ul>
-          {% else %}
-                <p> No posts are exist.</p>
-          {% endif %}
+            {% endif %}
+          </div>
           <br>
+          <br>
+          <div class="sign">
             {% if request.session.nickname %}
               <a href="{% url 'unknownstation:write' %}">새 포스트</a><br>
               <a href="{% url 'unknownstation:logout' %}">logout</a>
             {% else %}
               <a href="{% url 'unknownstation:login' %}">login</a>
             {% endif %}
+          </div>
+
         </div>
       </div> <!--row menubar -->
       <div class="row">
         <div class="bottom">
-          @copyright cloudysunny
+          (c) 2018. eggclothes
         </div>
       </div>
     </div><!-- container -->

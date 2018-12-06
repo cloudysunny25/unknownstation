@@ -8,13 +8,23 @@
 .bottom {
  background-color: #FAECC5;
  background: #FAECC5;
+ height: 300px;
 
 }
 
+.index{
+  height: 100%;
+}
 .post {
   padding: 30px;
   height: 100%;
 }
+
+.post_review {
+  padding: 30px;
+  height: 300px;
+}
+
 
 .title {
   width:100%;
