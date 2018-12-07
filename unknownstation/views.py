@@ -11,6 +11,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 # Create your views here.
 def index(request):
+    #index페이지 로드할 때마다 세션에 값 넣는건 너무 비효율적인데...init을 따로 할 수 있나
     blog_info = Blog.objects.get(id=6)
     user = blog_info.user
 
@@ -18,7 +19,7 @@ def index(request):
     categories = Category.objects.filter(blog_id=blog_info.id)
     #base data
     user_info = {'nickname':user.nickname }
-    category_list = [c.name for c in categories]
+    category_list = [{'id':c.id,'name':c.name, 'count':Post.objects.filter(category_id=c.id).count()} for c in categories]
     request.session['blogname'] = blog_info.blogname
     request.session['category_info'] = category_list
     request.session['user_info'] = user_info
@@ -27,24 +28,14 @@ def index(request):
 
     post_list = paginator.get_page(1)
     context = {
-        'page': page,
+        'page': 1,
         'post_list' : post_list
     }
     template = loader.get_template('unknownstation/index.html')
     return HttpResponse(template.render(context, request))
 
 def list(request,page):
-    blog_info = Blog.objects.get(id=6)
-    user = blog_info.user
 
-    #get()은 하나의 결과값만 가져옴. 여러건을 가져올 땐 filter
-    categories = Category.objects.filter(blog_id=blog_info.id)
-    #base data
-    user_info = {'nickname':user.nickname }
-    category_list = [c.name for c in categories]
-    request.session['blogname'] = blog_info.blogname
-    request.session['category_info'] = category_list
-    request.session['user_info'] = user_info
     #index data
     paginator = Paginator(Post.objects.order_by('-reg_date'), 5)
     '''
@@ -95,6 +86,9 @@ def update(request):
     post.content = request.POST['content']
     post.category = Category.objects.get(id=request.POST['category'])
     post.save()
+    categories = Category.objects.filter(blog_id=blog_info.id)
+    category_list = [{'id':c.id,'name':c.name, 'count':Post.objects.filter(category_id=c.id).count()} for c in Categories]
+    request.session['category_info'] = category_list
     return HttpResponseRedirect(reverse('unknownstation:index'))
 
 def delete(request):
@@ -109,6 +103,9 @@ def register(request):
     user = User.objects.get(pk=1)
     post = Post(title=request.POST['title'], content=request.POST['content'], category=category, user=user)
     post.save()
+    categories = Category.objects.filter(blog_id=blog_info.id)
+    category_list = [{'id':c.id,'name':c.name, 'count':Post.objects.filter(category_id=c.id).count()} for c in categories]
+    request.session['category_info'] = category_list
     return HttpResponseRedirect(reverse('unknownstation:index'))
 
 def login(request):
@@ -132,3 +129,17 @@ def auth(request):
             return HttpResponse("nickname and password are didn't match")
     except:
         return HttpResponse("nickname "+nickname+" is not exist")
+
+def byCategory(request, category_id, page):
+    categories=request.session.get('category_info')
+    #왜 session['category']로 가져오면 count값이 안나올까?
+    category_info=None
+    for c in categories:
+        print(c)
+        if c["id"]==category_id:
+            category_info =c
+
+    post_list = Post.objects.filter(category_id=category_id).order_by('-reg_date')
+    paginator = Paginator(post_list, 5)
+    post_list = paginator.get_page(page)
+    return render(request, 'unknownstation/listByCategory.html', {'post_list':post_list, 'page':page, 'category':category_info})

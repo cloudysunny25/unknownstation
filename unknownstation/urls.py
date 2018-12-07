@@ -14,4 +14,5 @@ urlpatterns = [
     path('<int:post_id>/updateView/', views.updateView, name='updateView'),
     path('update/', views.update, name='update'),
     path('delete/', views.delete, name='delete'),
+    path('<int:category_id>/byCategory/<int:page>', views.byCategory, name='byCategory'),
 ]

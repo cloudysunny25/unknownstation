@@ -10,7 +10,7 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-          <h1>{{ request.session.blogname }} </h1><br>
+        <a href="{% url 'unknownstation:index' %}"> <h1>{{ request.session.blogname }} </h1></a><br>
       </div>
       <div class="row">
         <div class="col-md-8 col-sm-12">
@@ -24,10 +24,14 @@
             django 공부용 블로그입니다.
           </div>
           <br>
+          <div class="search">
+            <input type='text' placeholder="search">
+          </div>
+          <br>
           <div class="category">
             {% if request.session.category_info %}
               {% for category in request.session.category_info %}
-              <a href="">{{ category }}</a><br>
+              <a href="{% url 'unknownstation:byCategory' category_id=category.id page=1 %}">{{ category.name }} ({{category.count}})</a><br>
               {% endfor %}
             {% endif %}
           </div>

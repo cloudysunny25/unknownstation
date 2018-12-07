@@ -1,6 +1,7 @@
 {% extends 'unknownstation/base.html' %}
 {% block content %}
 <div class="index">
+<h3>{{ category.name }} 카테고리의 포스트 {{category.count}}건 </h3>
 {% if post_list %}
   {% for post in post_list %}
   <div class="post_review">
@@ -16,11 +17,11 @@
   </div>
   {% endfor %}
   {% if post_list.has_previous%}
-    <a href="{% url 'unknownstation:list' post_list.previous_page_number %}">prev</a>
+    <a href="{% url 'unknownstation:byCategory' category_id=category.id page=post_list.previous_page_number %}">prev</a>
   {% endif %}
     {{  page }} of {{  post_list.paginator.num_pages }}
   {% if post_list.has_next %}
-    <a href="{% url 'unknownstation:list' post_list.next_page_number %}">next</a>
+    <a href="{% url 'unknownstation:byCategory' category_id=category.id page=post_list.next_page_number %}">next</a>
   {% endif %}
 {% else %}
 아직 포스트가 없습니다.
