@@ -10,47 +10,53 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <a href="{% url 'unknownstation:index' %}"> <h1>{{ request.session.blogname }} </h1></a><br>
+        <div class="top">
+          <a href="{% url 'unknownstation:index' %}"> <h1>{{ request.session.blogname }} </h1></a><br>
+        </div>
       </div>
       <div class="row">
-        <div class="col-md-8 col-sm-12">
-          {% block content %}
-          {% endblock %}
-        </div>
-        <div class="col-md-4 col-sm-12">
-          <div class="user_info">
-            {{ request.session.user_info.nickname }}
+        <div class="main">
+          <div class="col-md-9 col-sm-12">
+            {% block content %}
+            {% endblock %}
+          </div>
+          <div class="col-md-3 col-sm-12">
+            <div class="user_info">
+              {{ request.session.user_info.nickname }}
+              <br>
+              django 공부용 블로그입니다.
+            </div>
             <br>
-            django 공부용 블로그입니다.
-          </div>
-          <br>
-          <div class="search">
-            <input type='text' placeholder="search">
-          </div>
-          <br>
-          <div class="category">
-            {% if request.session.category_info %}
-              {% for category in request.session.category_info %}
-              <a href="{% url 'unknownstation:byCategory' category_id=category.id page=1 %}">{{ category.name }} ({{category.count}})</a><br>
-              {% endfor %}
-            {% endif %}
-          </div>
-          <br>
-          <br>
-          <div class="sign">
-            {% if request.session.nickname %}
-              <a href="{% url 'unknownstation:write' %}">새 포스트</a><br>
-              <a href="{% url 'unknownstation:logout' %}">logout</a>
-            {% else %}
-              <a href="{% url 'unknownstation:login' %}">login</a>
-            {% endif %}
-          </div>
+            <div class="search">
+              <input type='text' placeholder="search">
+            </div>
+            <br>
+            <div class="category">
+              {% if request.session.category_info %}
+                {% for category in request.session.category_info %}
+                <a href="{% url 'unknownstation:byCategory' category_id=category.id page=1 %}">{{ category.name }} ({{category.count}})</a><br>
+                {% endfor %}
+              {% endif %}
+            </div>
+            <br>
+            <br>
+            <div class="sign">
+              {% if request.session.nickname %}
+                <a href="{% url 'unknownstation:write' %}">새 포스트</a><br>
+                <a href="{% url 'unknownstation:logout' %}">logout</a>
+              {% else %}
+                <a href="{% url 'unknownstation:login' %}">login</a>
+              {% endif %}
+            </div>
 
+          </div>
         </div>
-      </div> <!--row menubar -->
+    </div>
       <div class="row">
         <div class="bottom">
-          (c) 2018. eggclothes
+          copyright 2018. eggclothes<br>
+          <a href="">email</a><br>
+          <a href="">github</a>
         </div>
       </div>
     </div><!-- container -->

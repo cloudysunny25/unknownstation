@@ -5,27 +5,28 @@
   {% for post in post_list %}
   <div class="post_review">
   <!--  <p>{{ post.category.name }}</p> -->
-    <h2>{{ post.title }}</h2>
-    <span>{{ post.reg_date}}</span>
-    <div width="500px">
-      <pre>
+    <div class="review_title">{{ post.title }}</div>
+    <div class="review_date">{{ post.reg_date}}</div>
+    <div class="review_content">
      {{ post.content }}
-     </pre>
     </div>
+     <a href="{% url 'unknownstation:detail' post.id %}"><span class="more">more</span></a>
+
 
   </div>
   {% endfor %}
-  {% if post_list.has_previous%}
-    <a href="{% url 'unknownstation:list' post_list.previous_page_number %}">prev</a>
+    <div class="page">
+    {% if post_list.has_previous%}
+      <a href="{% url 'unknownstation:list' post_list.previous_page_number %}">prev</a>
+    {% endif %}
+      {{  page }} of {{  post_list.paginator.num_pages }}
+    {% if post_list.has_next %}
+      <a href="{% url 'unknownstation:list' post_list.next_page_number %}">next</a>
+    {% endif %}
+  {% else %}
+  아직 포스트가 없습니다.
   {% endif %}
-    {{  page }} of {{  post_list.paginator.num_pages }}
-  {% if post_list.has_next %}
-    <a href="{% url 'unknownstation:list' post_list.next_page_number %}">next</a>
-  {% endif %}
-{% else %}
-아직 포스트가 없습니다.
-{% endif %}
-
+  </div>
 </div>
 
 {% endblock %}

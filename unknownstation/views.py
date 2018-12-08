@@ -20,7 +20,7 @@ def index(request):
     #base data
     user_info = {'nickname':user.nickname }
     category_list = [{'id':c.id,'name':c.name, 'count':Post.objects.filter(category_id=c.id).count()} for c in categories]
-    request.session['blogname'] = blog_info.blogname
+    request.session['blog_info'] = {'id':blog_info.id, 'blogname':blog_info.blogname }
     request.session['category_info'] = category_list
     request.session['user_info'] = user_info
     #index data
@@ -86,8 +86,8 @@ def update(request):
     post.content = request.POST['content']
     post.category = Category.objects.get(id=request.POST['category'])
     post.save()
-    categories = Category.objects.filter(blog_id=blog_info.id)
-    category_list = [{'id':c.id,'name':c.name, 'count':Post.objects.filter(category_id=c.id).count()} for c in Categories]
+    categories = Category.objects.filter(blog_id=request.session.get('blog_info')['id'])
+    category_list = [{'id':c.id,'name':c.name, 'count':Post.objects.filter(category_id=c.id).count()} for c in categories]
     request.session['category_info'] = category_list
     return HttpResponseRedirect(reverse('unknownstation:index'))
 
@@ -103,7 +103,7 @@ def register(request):
     user = User.objects.get(pk=1)
     post = Post(title=request.POST['title'], content=request.POST['content'], category=category, user=user)
     post.save()
-    categories = Category.objects.filter(blog_id=blog_info.id)
+    categories = Category.objects.filter(blog_id=request.session.get('blog_info')['id'])
     category_list = [{'id':c.id,'name':c.name, 'count':Post.objects.filter(category_id=c.id).count()} for c in categories]
     request.session['category_info'] = category_list
     return HttpResponseRedirect(reverse('unknownstation:index'))
@@ -113,7 +113,8 @@ def login(request):
     return render(request, 'unknownstation/login.html', {'form':form})
 
 def logout(request):
-    request.session.flush()
+    request.session['nickname']=None
+    request.session['user_id']=None
     return HttpResponseRedirect(reverse('unknownstation:index'))
 
 def auth(request):
