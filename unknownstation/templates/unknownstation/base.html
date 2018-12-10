@@ -2,16 +2,18 @@
 
 <html>
   <head>
-    <title>{{ request.session.blogname|upper }} </title>
+    <title>{{ request.session.blog_info.blogname|upper }} </title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+    <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-jp.css' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div class="container-fluid">
       <div class="row">
         <div class="top">
-          <a href="{% url 'unknownstation:index' %}"> <h1>{{ request.session.blogname }} </h1></a><br>
+          <a href="{% url 'unknownstation:index' %}"> <h1>E g g c l o t h e s</h1></a><br>
         </div>
       </div>
       <div class="row">

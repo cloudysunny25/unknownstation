@@ -9,7 +9,7 @@
       <form  id="deleteForm" action="{% url 'unknownstation:delete' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="post_id" value="{{ post_info.id}}">
-        <a href="{% url 'unknownstation:updateView' post_info.id %}">수정</a>
+        <a href="{% url 'unknownstation:updateView' post_info.id %}">수정</a> | 
         <a href="deletePost()">삭제</a>
       </form>
     {% endif %}

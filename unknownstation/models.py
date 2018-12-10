@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 from django.utils import timezone
+from django.db.models import Count
 # Create your models here.
 #id는 자동생성
 class User(models.Model):
@@ -34,6 +35,9 @@ class Category(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
+
+    def __list__(blog_id):
+        return Category.objects.filter(blog_id=blog_id).values('name','id',count=Count('post'))
 #class Log(models.Model):
 
 

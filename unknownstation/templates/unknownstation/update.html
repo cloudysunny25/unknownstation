@@ -6,8 +6,8 @@
     <h1>Update Post</h1>
     <select name="category">
       <option value=""> 선택</option>
-      {% if category_info %}
-        {% for category in category_info %}
+      {% if request.session.category_info %}
+        {% for category in request.session.category_info %}
           {% if category.id == post_info.category.id %}
             <option value="{{ category.id }}" selected> {{ category.name}}</option>
           {% else %}
@@ -23,5 +23,5 @@
     <input type="hidden" name="post_id" value="{{ post_info.id }}">
     <input type="submit" value="update">
   </form>
-</div>  
+</div>
 {% endblock %}

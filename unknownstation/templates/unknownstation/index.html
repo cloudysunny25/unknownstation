@@ -2,6 +2,9 @@
 {% block content %}
 <div class="index">
 {% if post_list %}
+  <div class="page">
+     전체 <b>{{post_list.paginator.count}}</b>개의 포스트
+  </div>
   {% for post in post_list %}
   <div class="post_review">
   <!--  <p>{{ post.category.name }}</p> -->
@@ -10,7 +13,7 @@
     <div class="review_content">
      {{ post.content }}
     </div>
-     <a href="{% url 'unknownstation:detail' post.id %}"><span class="more">more</span></a>
+     <a href="{% url 'unknownstation:detail' post.id %}"><div class="more">more</div></a>
 
 
   </div>
@@ -23,10 +26,11 @@
     {% if post_list.has_next %}
       <a href="{% url 'unknownstation:list' post_list.next_page_number %}">next</a>
     {% endif %}
+    </div>
   {% else %}
   아직 포스트가 없습니다.
   {% endif %}
-  </div>
+
 </div>
 
 {% endblock %}

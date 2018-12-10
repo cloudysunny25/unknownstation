@@ -4,7 +4,7 @@ from . import views
 app_name = 'unknownstation'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<int:page>/list/', views.list, name='list'),
+    path('<int:page>/list/', views.postlist, name='list'),
     path('<int:post_id>/detail/', views.detail, name='detail'),
     path('write/', views.write, name='write'),
     path('register/', views.register, name='register'),
