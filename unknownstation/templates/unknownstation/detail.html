@@ -3,13 +3,13 @@
 <div class="post">
   <p>{{ post_info.category.name }}</p>
   <div class="title">{{ post_info.title }}</div>
-  <div class="date">{{ post_info.reg_date}}</div>
+  <div class="date">{{ post_info.reg_date | date:'Y.m.d.  H:i:s'}}</div>
   <div class="updatebutton">
     {% if request.session.nickname %}
       <form  id="deleteForm" action="{% url 'unknownstation:delete' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="post_id" value="{{ post_info.id}}">
-        <a href="{% url 'unknownstation:updateView' post_info.id %}">수정</a> | 
+        <a href="{% url 'unknownstation:updateView' post_info.id %}">수정</a> |
         <a href="deletePost()">삭제</a>
       </form>
     {% endif %}
@@ -22,7 +22,7 @@
 {% endblock %}
 
 
-<<script type="text/javascript">
+<script type="text/javascript">
   function deletePost(){
     document.getElementById("deleteForm").submit();
   }

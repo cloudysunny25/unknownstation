@@ -2,6 +2,7 @@
 
 <html>
   <head>
+    <meta charset="utf-8">
     <title>{{ request.session.blog_info.blogname|upper }} </title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
@@ -30,7 +31,7 @@
             </div>
             <br>
             <div class="search">
-              <input type='text' placeholder="search">
+              <input type='text' id='keyword' placeholder="search" onkeyup="enter()">
             </div>
             <br>
             <div class="category">
@@ -63,4 +64,13 @@
       </div>
     </div><!-- container -->
   </body>
+  <script type="text/javascript">
+    function enter(){
+      var keyword = document.getElementById("keyword").value;
+      if (window.event.keyCode == 13){
+          location.href="{{request.ROOT_URLCONF}}/blog/byKeyword?keyword="+keyword+"&page=1"
+      }
+
+    }
+  </script>
 </html>

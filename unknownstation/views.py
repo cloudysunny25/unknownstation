@@ -9,6 +9,7 @@ from django.contrib.sessions.backends.db import SessionStore
 from django.core import serializers
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Count
+from django.db.models import Q
 # Create your views here.
 def index(request):
     #get()은 하나의 결과값만 가져옴. 여러건을 가져올 땐 filter
@@ -24,7 +25,6 @@ def index(request):
     paginator = Paginator(Post.objects.order_by('-reg_date'), 5)
     post_list = paginator.get_page(1)
     context = {
-        'page': 1,
         'post_list' : post_list
     }
     template = loader.get_template('unknownstation/index.html')
@@ -38,7 +38,6 @@ def postlist(request,page):
 
     post_list = paginator.get_page(page)
     context = {
-        'page': page,
         'post_list' : post_list
     }
     template = loader.get_template('unknownstation/index.html')
@@ -129,4 +128,12 @@ def byCategory(request, category_id, page):
     post_list = Post.objects.filter(category_id=category_id).order_by('-reg_date')
     paginator = Paginator(post_list, 5)
     post_list = paginator.get_page(page)
-    return render(request, 'unknownstation/listByCategory.html', {'post_list':post_list, 'page':page, 'category':category})
+    return render(request, 'unknownstation/listByCategory.html', {'post_list':post_list, 'category':category})
+
+def byKeyword(request):
+    keyword = request.GET['keyword']
+    page = request.GET['page']
+    post_list = Post.objects.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)).order_by('-reg_date')
+    paginator = Paginator(post_list, 5)
+    page = paginator.get_page(page)
+    return render(request, 'unknownstation/listByKeyword.html',{'post_list':page, 'keyword':keyword})

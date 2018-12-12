@@ -4,7 +4,7 @@
 
 {% if post_list %}
   <div class="page">
-  <b>{{ category.name }}</b> > <b>{{category.count}}</b>개의 포스트
+  검색어 <b>{{ keyword }}</b>에 대해 <b>{{post_list.paginator.count}}</b>개의 포스트가 검색되었습니다. 
   </div>
   {% for post in post_list %}
   <div class="post_review">
@@ -29,7 +29,7 @@
   </div>
 
 {% else %}
-아직 포스트가 없습니다.
+검색어 {{ keyword}}를 포함한 포스트가 없습니다.
 {% endif %}
 
 </div>

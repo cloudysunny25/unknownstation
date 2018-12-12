@@ -9,7 +9,7 @@
   <div class="post_review">
   <!--  <p>{{ post.category.name }}</p> -->
     <div class="review_title">{{ post.title }}</div>
-    <div class="review_date">{{ post.reg_date}}</div>
+    <div class="review_date">{{ post.reg_date | date:'Y.m.d.  H:i:s'}}</div>
     <div class="review_content">
      {{ post.content }}
     </div>
@@ -22,7 +22,7 @@
     {% if post_list.has_previous%}
       <a href="{% url 'unknownstation:list' post_list.previous_page_number %}">prev</a>
     {% endif %}
-      {{  page }} of {{  post_list.paginator.num_pages }}
+      {{  post_list.number }} of {{  post_list.paginator.num_pages }}
     {% if post_list.has_next %}
       <a href="{% url 'unknownstation:list' post_list.next_page_number %}">next</a>
     {% endif %}
