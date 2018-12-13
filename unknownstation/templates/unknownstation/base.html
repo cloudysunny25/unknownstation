@@ -44,7 +44,7 @@
             <br>
             <br>
             <div class="sign">
-              {% if request.session.nickname %}
+              {% if user.is_authenticated %}
                 <a href="{% url 'unknownstation:write' %}">새 포스트</a><br>
                 <a href="{% url 'unknownstation:logout' %}">logout</a>
               {% else %}

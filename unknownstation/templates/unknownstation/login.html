@@ -1,5 +1,17 @@
-<form action="{% url 'unknownstation:auth'  %}" method="post" >
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="register">
-</form>
+<html>
+  <head>
+    <title>login</title>
+  </head>
+  <body>
+        <form class="login_inline" action="{% url 'unknownstation:auth'  %}" method="post" >
+          {% csrf_token %}
+
+          <input type="text" name="nickname" placeholder="username"><br>
+          <input type="password" name="password" placeholder="password"><br>
+          <input type="submit" value="register">
+
+        </form>
+
+
+  </body>
+</html>

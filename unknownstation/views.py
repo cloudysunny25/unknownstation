@@ -10,6 +10,9 @@ from django.core import serializers
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Count
 from django.db.models import Q
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
     #get()은 하나의 결과값만 가져옴. 여러건을 가져올 땐 filter
@@ -52,7 +55,7 @@ def detail(request, post_id):
     }
     return HttpResponse(template.render(context, request))
 
-
+@login_required
 def write(request):
     '''
     template = loader.get_template('unknownstation/write.html')
@@ -65,12 +68,12 @@ def write(request):
     '''
     return render(request, 'unknownstation/write.html')
 
-
+@login_required
 def updateView(request,post_id):
     post = Post.objects.get(id=post_id)
     return render(request, 'unknownstation/update.html',{'post_info':post, })
 
-
+@login_required
 def update(request):
     post = Post.objects.get(id=request.POST['post_id'])
     post.title = request.POST['title']
@@ -81,13 +84,14 @@ def update(request):
     request.session['category_info'] = list(categories)
     return HttpResponseRedirect(reverse('unknownstation:index'))
 
+@login_required
 def delete(request):
     post = Post.objects.get(id=request.POST['post_id'])
     post.delete()
     return HttpResponseRedirect(reverse('unknownstation:index'))
 
 
-
+@login_required
 def register(request):
     category = Category.objects.get(pk=request.POST['category'])
     user = User.objects.get(id=request.session.get('user_info')['id'])
@@ -97,27 +101,26 @@ def register(request):
     request.session['category_info'] = list(categories)
     return HttpResponseRedirect(reverse('unknownstation:index'))
 
-def login(request):
-    form = LoginForm()
-    return render(request, 'unknownstation/login.html', {'form':form})
 
-def logout(request):
+def __login__(request):
+    #form = LoginForm()
+    return render(request, 'unknownstation/login.html')
 
+def __logout__(request):
+    logout(request)
     return HttpResponseRedirect(reverse('unknownstation:index'))
+
 
 def auth(request):
     nickname = request.POST['nickname']
     password = request.POST['password']
-    try:
-        user = User.objects.get(nickname=nickname)
-        if user.password==password:
-            request.session['nickname'] = user.nickname
-            request.session['user_id'] = user.id
-            return HttpResponseRedirect(reverse('unknownstation:index'))
-        else:
-            return HttpResponse("nickname and password are didn't match")
-    except:
-        return HttpResponse("nickname "+nickname+" is not exist")
+    user = authenticate(request, username=nickname, password=password)
+    if user is not None:
+        login(request,user)
+        return HttpResponseRedirect(reverse('unknownstation:index'))
+    else:
+        return HttpResponse("nickname and password are didn't match")
+
 
 
 def byCategory(request, category_id, page):
