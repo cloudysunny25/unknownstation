@@ -1,17 +1,37 @@
+{% load static %}
 <html>
   <head>
     <title>login</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+    <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-jp.css' rel='stylesheet' type='text/css'>
   </head>
-  <body>
-        <form class="login_inline" action="{% url 'unknownstation:auth'  %}" method="post" >
-          {% csrf_token %}
+  <body class="login">
+      <div class="container">
+        <div id="header">
+          <h4>Login</h4>
+        </div>
+        <div id="content">
+          <form action="{% url 'unknownstation:auth'  %}" method="post" >
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="nickname">username</label>
+              <input type="text" name="nickname" class="form-control" placeholder="username"><br>
+            </div>
+            <div class="form-group">
+              <label for="password">password</label>
+              <input type="password" name="password" class="form-control" placeholder="password"><br>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-default" value="login">
+            </div>
+            <div id="footer"></div>
+          </form>
+        </div>
 
-          <input type="text" name="nickname" placeholder="username"><br>
-          <input type="password" name="password" placeholder="password"><br>
-          <input type="submit" value="register">
-
-        </form>
-
+      </div>
 
   </body>
 </html>

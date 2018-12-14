@@ -136,21 +136,3 @@ a:visited{
 .more{
   text-align: left;
 }
-
-.login_outline{
-  margin-left: 0px;
-  margin-top: 0px;
-  margin-right: 0px;
-  margin-bottom: 0px;
-  background-color: #FAECC5;
-}
-
-.login_inline{
-  display: block;
-  margin: 0 auto;
-  width:300px;
-  height:200px;
-  position: relative;
-  background-color:white;
-
-}
