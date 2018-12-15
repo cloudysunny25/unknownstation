@@ -1,0 +1,138 @@
+{ font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'; }
+
+html,body {
+    margin:0;
+    padding:0;
+    height:100%;
+     background-color: #FAECC5;
+}
+
+.container-fluid {
+  position: relative;
+  min-height: 100%;
+
+}
+
+.main{
+  min-height: 100%;
+  overflow: auto;
+  padding-bottom: 100px;/*footer 하단 고정해도 내용 가려지지 않도록...*/
+}
+a{
+  text-decoration: none;
+}
+a:link{
+  color: black;
+}
+a:hover{
+  color:grey;
+}
+a:visited{
+  color:black;
+}
+.top{
+  padding:20px;
+}
+.bottom {
+  width: 100%;
+ background-color: #2F9D27;
+ height: 100px;
+ text-align: center;
+ padding:30px;
+ position: absolute;
+ bottom: 0;
+ left: 0;
+}
+
+.index{
+  /*min-height: 100%;
+  overflow: auto;*/
+
+}
+.post {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 80px;
+  padding-right: 80px;
+  /*height: auto;
+  overflow: auto;*/
+}
+
+.post_review {
+  padding: 20px;
+  height: 200px;
+  margin-top: :20px;
+  margin-bottom: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-color: #A6A6A6;
+  border: 0.5px;
+  border-style: solid;
+}
+.page{
+  height: 50px;
+  text-align: center;
+}
+
+.title {
+  width:100%;
+  font-size: 20px;
+}
+
+.date{
+  text-align: right;
+  border-bottom: 0.5px;
+  border-bottom-style: solid;
+}
+
+.updateButton{
+  text-align: right;
+  padding:10px;
+}
+
+.content{
+  width:100%;
+  height: auto;
+  white-space: pre-line;
+  display: inline-block;
+  overflow: auto;
+}
+
+.title_write {
+  min-width: 100%;
+  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.content_write{
+  width:100%;
+  min-height: 100%;
+  white-space: pre-line;
+  display: inline-block;
+  overflow: auto;
+  resize: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+.review_title{
+  text-align: left;
+  font-size: 20px;
+}
+.review_date{
+
+}
+.review_content{
+  width: auto;
+  height: 100px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: pre-line;
+}
+
+.more{
+  text-align: left;
+}

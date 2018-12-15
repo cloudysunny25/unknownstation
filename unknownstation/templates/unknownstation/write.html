@@ -13,11 +13,14 @@
       {% endif%}
     </select>
     <br>
-    <input type ="text" name="title" class="title_write">
+ <input type ="text" name="title" class="title_write">
     <br>
-    <textarea name="content" class="content_write"></textarea><br>
+    <!--   <textarea name="content" class="content_write"></textarea><br>-->
+    {{ form }}
     <input type="submit" value="등록">
 
   </form>
+
+  {{ form.media}}
 </div>
 {% endblock %}

@@ -1,18 +1,18 @@
 from django import forms
 from .models import Post,User,Category
 from django.forms import ModelForm,PasswordInput
+from markdownx.fields import MarkdownxFormField
 
 
+class PostForm(forms.Form):
 
-class PostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ('title', 'content',)
+    content = MarkdownxFormField()
 
-
+'''
 class LoginForm(forms.ModelForm):
 
     password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = User
         fields = ('nickname', 'password',)
+'''
