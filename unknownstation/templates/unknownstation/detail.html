@@ -5,7 +5,7 @@
   <div class="title">{{ post_info.title }}</div>
   <div class="date">{{ post_info.reg_date | date:'Y.m.d.  H:i:s'}}</div>
   <div class="updatebutton">
-    {% if request.session.nickname %}
+    {% if user.is_authenticated %}
       <form  id="deleteForm" action="{% url 'unknownstation:delete' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="post_id" value="{{ post_info.id}}">

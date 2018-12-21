@@ -1,14 +1,28 @@
 {% load static %}
-
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ request.session.blog_info.blogname|upper }} </title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+  <!--  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/markdown.css' %}">
     <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
     <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-jp.css' rel='stylesheet' type='text/css'>
+    <style>
+     * { font-family : 'NanumSquare', 'Sans-serif'; }
+    </style>
+
   </head>
   <body>
     <div class="container-fluid">
@@ -17,8 +31,8 @@
           <a href="{% url 'unknownstation:index' %}"> <h1>E g g c l o t h e s</h1></a><br>
         </div>
       </div>
-      <div class="row">
-        <div class="main">
+      <div class="row main">
+      <!--  <div class="main">-->
           <div class="col-md-9 col-sm-12">
             {% block content %}
             {% endblock %}
@@ -53,11 +67,11 @@
             </div>
 
           </div>
-        </div>
+      <!--  </div>-->
     </div>
       <div class="row">
         <div class="bottom">
-          copyright 2018. eggclothes<br>
+          © 2018 EGGCLOTHES all rights reserved.<br>
           <a href="">email</a><br>
           <a href="">github</a>
         </div>
@@ -65,12 +79,47 @@
     </div><!-- container -->
   </body>
   <script type="text/javascript">
+
+
     function enter(){
       var keyword = document.getElementById("keyword").value;
       if (window.event.keyCode == 13){
           location.href="{{request.ROOT_URLCONF}}/blog/byKeyword?keyword="+keyword+"&page=1"
       }
-
     }
+    //markdown editor
+  /*  var btn = document.querySelector("#tabchange");
+    var space1 = document.querySelector("#write-space");
+    var space2 = document.querySelector("#preview-space");
+    space2.style.display="none";
+
+    btn.addEventListener("click", function(){
+     if(this.value=="preview"){
+        space1.style.display="none";
+        space2.style.display="";
+        this.value="editor";
+      }else{
+        space1.style.display="";
+        space2.style.display="none";
+        this.value="preview";
+      }
+    })*/
+
+    document.querySelector("#check").onclick=function(){
+      var text = {"text":document.querySelector(".content_write").value, "mode":"gfm"}
+      var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+       document.getElementById("markdown").innerHTML = this.responseText;
+       alert(this.responseText)
+      }
+    };
+
+    xhttp.open("POST", "https://api.github.com/markdown", true);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+    xhttp.setRequestHeader('Authorization', 'bcbbe3360c392890e92034f22b21f182ba067be6');
+    xhttp.send(JSON.stringify(text));
+    }
+
   </script>
 </html>

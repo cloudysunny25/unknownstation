@@ -20,8 +20,13 @@
     <input type ="text" name="title" value="{{ post_info.title }}" class="title_write">
     <br>
     <textarea name="content" class="content_write">{{ post_info.content }}</textarea>
+    <input type="button" value="preview" id="check">
+    <div id="markdown"></div>
     <input type="hidden" name="post_id" value="{{ post_info.id }}">
     <input type="submit" value="update">
   </form>
 </div>
 {% endblock %}
+<script type="text/javascript">
+
+</script>

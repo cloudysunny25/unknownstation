@@ -2,7 +2,7 @@ from django.db import models
 import datetime
 from django.utils import timezone
 from django.db.models import Count
-from markdownx.models import MarkdownxField
+#from markdownx.models import MarkdownxField
 from django.contrib.auth.models import User
 
 
@@ -55,11 +55,11 @@ class Image(CommonData):
 class Post(CommonData):
     title = models.CharField(max_length=500)
     #content = models.TextField()
-    content = MarkdownxField()
+    content = models.TextField()
+    content_markdown= models.TextField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True, blank=True)
     hit = models.IntegerField(default=0)
     published = models.BooleanField(default=False)
 

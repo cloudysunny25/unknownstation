@@ -3,7 +3,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import User,Blog,Post,Category
 from django.views import generic
 from django.template import loader
-from .forms import PostForm
 from django.urls import reverse
 from django.contrib.sessions.backends.db import SessionStore
 from django.core import serializers
@@ -58,17 +57,13 @@ def detail(request, post_id):
 
 @login_required
 def write(request):
-    '''
+
     template = loader.get_template('unknownstation/write.html')
-    user_info = User.objects.get(nickname='norang')
-    blog_info = Blog.objects.get(id=6)
-    context = {
-            'blog_info' : blog_info,
-            'user_info' : user_info,
-    }
-    '''
-    form = PostForm()
-    return render(request, 'unknownstation/write.html',{'form':form})
+    user_info = User.objects.get(username='eggkim')
+    blog_info = Blog.objects.get(id=2)
+
+    #form = PostForm()
+    return render(request, 'unknownstation/write.html',{'blog_info':blog_info, 'user_info':user_info})
 
 @login_required
 def updateView(request,post_id):
