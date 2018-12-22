@@ -1,7 +1,7 @@
 {% extends 'unknownstation/base.html' %}
 {% block content %}
 <div class="post">
-  <form action="{% url 'unknownstation:update'  %}" method="post" >
+  <form action="{% url 'unknownstation:update'  %}" id="write_form" method="post" >
     {% csrf_token %}
     <h1>Update Post</h1>
     <select name="category">
@@ -19,11 +19,12 @@
     <br>
     <input type ="text" name="title" value="{{ post_info.title }}" class="title_write">
     <br>
-    <textarea name="content" class="content_write">{{ post_info.content }}</textarea>
-    <input type="button" value="preview" id="check">
+    <textarea name="content" id="content" class="content_write">{{ post_info.content }}</textarea>
+    <input type="button" value="preview" id="tabchange">
     <div id="markdown"></div>
+    <input type="hidden" name="content_markdown" id="content_markdown">
     <input type="hidden" name="post_id" value="{{ post_info.id }}">
-    <input type="submit" value="update">
+    <input type="button" value="update" onclick="write_form_submit()">
   </form>
 </div>
 {% endblock %}

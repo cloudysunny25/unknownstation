@@ -75,8 +75,10 @@ def update(request):
     post = Post.objects.get(id=request.POST['post_id'])
     post.title = request.POST['title']
     post.content = request.POST['content']
+    post.content_markdown = request.POST['content_markdown']
     post.category = Category.objects.get(id=request.POST['category'])
     post.save()
+    print(request.POST['content_markdown']+"???")
     categories = Category.__list__(request.session['blog_info']['id'])
     request.session['category_info'] = list(categories)
     return HttpResponseRedirect(reverse('unknownstation:index'))
@@ -93,7 +95,8 @@ def register(request):
     category = Category.objects.get(pk=request.POST['category'])
     user = User.objects.get(id=request.session.get('user_info')['id'])
     blog = Blog.objects.get(id=request.session.get('blog_info')['id'])
-    post = Post(title=request.POST['title'], content=request.POST['content'], category=category, user=user, blog=blog)
+    print(request.POST['content_markdown']+"???")
+    post = Post(title=request.POST['title'], content=request.POST['content'], content_markdown = request.POST['content_markdown'], category=category, user=user, blog=blog)
     post.save()
     categories = Category.__list__(request.session['blog_info']['id'])
     request.session['category_info'] = list(categories)

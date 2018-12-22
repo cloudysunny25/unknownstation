@@ -63,5 +63,5 @@ class Post(CommonData):
     hit = models.IntegerField(default=0)
     published = models.BooleanField(default=False)
 
-    def __str__(CommonData):
+    def __str__(self):
         return self.title

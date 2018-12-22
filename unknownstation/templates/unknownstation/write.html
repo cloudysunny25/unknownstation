@@ -1,7 +1,7 @@
 {% extends 'unknownstation/base.html' %}
 {% block content %}
 <div class="post">
-  <form action="{% url 'unknownstation:register'  %}" method="post" >
+  <form action="{% url 'unknownstation:register'  %}" id="write_form" method="post" >
     {% csrf_token %}
     <h4>New post</h4>
     <select name="category">
@@ -13,14 +13,13 @@
       {% endif%}
     </select>
     <br>
- <input type ="text" name="title" class="title_write">
+    <input type ="text" name="title" class="title_write">
     <br>
-    <input type="button" id="check" value="preview">
-    <br>
-    <textarea name="content" class="content_write"></textarea>
-    <input type="button" value="preview" id="check">
+    <textarea name="content" class="content_write" id="content"></textarea>
+    <input type="button" value="preview" id="tabchange">
+    <input type="hidden" name="content_markdown" id="content_markdown">
     <div id="markdown"></div>
-    <input type="submit" value="등록">
+    <input type="button" value="등록" onclick="write_form_submit()">
 
   </form>
 

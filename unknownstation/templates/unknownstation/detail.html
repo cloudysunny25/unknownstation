@@ -3,27 +3,27 @@
 <div class="post">
   <p>{{ post_info.category.name }}</p>
   <div class="title">{{ post_info.title }}</div>
-  <div class="date">{{ post_info.reg_date | date:'Y.m.d.  H:i:s'}}</div>
+  <div class="date">{{ post_info.created_date | date:'Y.m.d.  H:i:s'}}</div>
   <div class="updatebutton">
     {% if user.is_authenticated %}
-      <form  id="deleteForm" action="{% url 'unknownstation:delete' %}" method="post">
+      <form  id="deleteForm" action="{% url 'unknownstation:delete' %}" method="post>
         {% csrf_token %}
         <input type="hidden" name="post_id" value="{{ post_info.id}}">
         <a href="{% url 'unknownstation:updateView' post_info.id %}">수정</a> |
-        <a href="deletePost()">삭제</a>
+        <a href="#" onclick="deletePost();return false;">삭제</a>
       </form>
     {% endif %}
   </div>
-  <div class="content">
-   {{ post_info.content }}
-  </div>
+  <div id="content">{% autoescape off %}{{ post_info.content_markdown}}{% endautoescape %}</div>
 
 </div>
 {% endblock %}
 
 
 <script type="text/javascript">
-  function deletePost(){
+
+
+function deletePost(){
     document.getElementById("deleteForm").submit();
   }
 </script>

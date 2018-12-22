@@ -11,7 +11,7 @@
     <div class="review_title">{{ post.title }}</div>
     <div class="review_date">{{ post.reg_date | date:'Y.m.d.  H:i:s'}}</div>
     <div class="review_content">
-     {{ post.content }}
+     {{ post.content_markdown |striptags |truncatechars_html:100 }}
     </div>
      <a href="{% url 'unknownstation:detail' post.id %}"><div class="more">more</div></a>
 

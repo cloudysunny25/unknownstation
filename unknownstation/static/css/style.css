@@ -33,9 +33,15 @@ a:visited{
 .top{
   padding:20px;
 }
+#blogtitle{
+  text-align: center;
+}
+.menubar {
+  background: #FFE400;
+}
 .bottom {
   width: 100%;
- background-color: #FFE400;
+ background-color: #eee;
  height: 100px;
  text-align: center;
  padding:30px;
@@ -92,10 +98,11 @@ a:visited{
 
 .content{
   width:100%;
-  height: auto;
-  white-space: pre-line;
+  min-height: 300px;
+  /*height: auto;*/
+  /*white-space: pre-line;*/
   display: inline-block;
-  overflow: auto;
+  overflow: visible;
 }
 
 .title_write {
