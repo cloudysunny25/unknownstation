@@ -9,12 +9,14 @@
       <form  id="deleteForm" action="{% url 'unknownstation:delete' %}" method="post>
         {% csrf_token %}
         <input type="hidden" name="post_id" value="{{ post_info.id}}">
+
         <a href="{% url 'unknownstation:updateView' post_info.id %}">수정</a> |
         <a href="#" onclick="deletePost();return false;">삭제</a>
+
       </form>
     {% endif %}
   </div>
-  <div id="content">{% autoescape off %}{{ post_info.content_markdown}}{% endautoescape %}</div>
+  <div class="content">{% autoescape off %}{{ post_info.content_markdown}}{% endautoescape %}</div>
 
 </div>
 {% endblock %}

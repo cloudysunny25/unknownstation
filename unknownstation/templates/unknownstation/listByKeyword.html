@@ -4,15 +4,15 @@
 
 {% if post_list %}
   <div class="page">
-  검색어 <b>{{ keyword }}</b>에 대해 <b>{{post_list.paginator.count}}</b>개의 포스트가 검색되었습니다. 
+  검색어 <b>{{ keyword }}</b>에 대해 <b>{{post_list.paginator.count}}</b>개의 포스트가 검색되었습니다.
   </div>
   {% for post in post_list %}
   <div class="post_review">
   <!--  <p>{{ post.category.name }}</p> -->
-    <div class="review_title">{{ post.title }}</div>
-    <div class="review_date">{{ post.reg_date | date:'Y.m.d.  H:i:s'}}</div>
-    <div class="review_content">
-     {{ post.content }}
+    <div class="preview_title"><b>{{ post.title }}</b></div>
+    <div class="preview_date">{{ post.reg_date | date:'Y.m.d'}}</div>
+    <div class="preview_content">
+     {{ post.content_markdown |striptags |truncatechars_html:200 }}
     </div>
      <a href="{% url 'unknownstation:detail' post.id %}"><div class="more">more</div></a>
   </div>
@@ -29,7 +29,7 @@
   </div>
 
 {% else %}
-검색어 {{ keyword}}를 포함한 포스트가 없습니다.
+검색어 <b>{{ keyword}}</b>에 해당하는 포스트가 없습니다.
 {% endif %}
 
 </div>
