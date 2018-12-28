@@ -124,15 +124,15 @@ def auth(request):
 
 
 
-def byCategory(request, category_id, page):
-    category = None
+def byCategory(request, category, page):
+    category_info = None
     for c in request.session.get('category_info'):
-        if c['id']==category_id:
-            category = c
-    post_list = Post.objects.filter(category_id=category_id).order_by('-created_date')
+        if c['name']==category:
+            category_info = c
+    post_list = Post.objects.filter(category_id=category_info['id']).order_by('-created_date')
     paginator = Paginator(post_list, 5)
     post_list = paginator.get_page(page)
-    return render(request, 'unknownstation/listByCategory.html', {'post_list':post_list, 'category':category})
+    return render(request, 'unknownstation/listByCategory.html', {'post_list':post_list, 'category_info':category_info})
 
 def byKeyword(request):
     keyword = request.GET['keyword']
@@ -141,3 +141,24 @@ def byKeyword(request):
     paginator = Paginator(post_list, 5)
     page = paginator.get_page(page)
     return render(request, 'unknownstation/listByKeyword.html',{'post_list':page, 'keyword':keyword})
+
+def category(request):
+    categories = Category.__list__(blog_id=2)
+    return render(request,'unknownstation/category.html',{'categories':categories})
+
+def month(request):
+    dates = Post.objects.dates('created_date','month')
+    month_list = list()
+    year_list = list()
+    for date in dates:
+        year_list.append(date.year)
+        mrow = {'year':date.year,'month':date.month,'count':Post.objects.filter(created_date__year=date.year,created_date__month=date.month).count()}
+        month_list.append(mrow)
+    return render(request, 'unknownstation/month.html',{'year_list':year_list,'month_list':month_list})
+
+def byMonth(request, year, month, page):
+    post_list = Post.objects.filter(created_date__year=year,created_date__month=month).order_by('-created_date')
+    paginator = Paginator(post_list, 5)
+    page = paginator.get_page(page)
+    mrow = {'year':year,'month':month,'count':Post.objects.filter(created_date__year=year,created_date__month=month).count()}
+    return render(request,'unknownstation/listByMonth.html',{'post_list':page, 'month_info':mrow})

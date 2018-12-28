@@ -40,14 +40,15 @@ a:visited{
   text-align: right;
 }
 
-.top{
-  /*background-color: #74B560;*/
+.top .search2{
+  background-color: #74B560;
 }
 .intro{
-  /*background-color: #74B560;*/
-  padding-top: 30px;
+
+  min-height: 100px;
+  /*padding-top: 30px;
   padding-bottom: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 30px;*/
 
 /*  border-top: 0.2px;
   border-top: solid;
@@ -76,7 +77,12 @@ a:visited{
   border-bottom-color: #545454;
   border-bottom-width: 0.3px;
 }
-
+/* mobile version searchbar */
+.keyword2{
+  width:  100%;
+  margin-left: 3%;
+  margin-right: 3%;
+}
 .bottom {
   width: 100%;
  background-color: #545454;
@@ -103,7 +109,10 @@ input #keyword{
   height: 30px;
   background-color: #cccccc;
 }
-
+.menu{
+  margin-top: 10px;
+  text-align: center;
+}
 
 .post {
   padding-top: 30px;
@@ -113,21 +122,46 @@ input #keyword{
   /*height: auto;
   overflow: auto;*/
 }
-
-.post_review {
-  padding: 20px;
-  height: 200px;
-  margin-top: :20px;
-  margin-bottom: 20px;
-  margin-left: 8%;
-  margin-right: 8%;
-  border-color: #A6A6A6;
-  border: 0.5px;
-  border-style: solid;
+@media only screen and (min-width:768px) and (orientation:landscape){
+  .post_review {
+    padding: 20px;
+    height: 200px;
+    margin-top: :20px;
+    margin-bottom: 20px;
+    margin-left: 8%;
+    margin-right: 8%;
+    border: 0.5px;
+    border-color: rgba(0,0,0,0.12);
+    border-style: solid;
+    border-radius: 3px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  }
 }
+
+@media only screen and (max-width:768px) and (orientation:portrait){
+  .post_review {
+    padding: 20px;
+    height: 200px;
+    margin-top: :20px;
+    margin-bottom: 20px;
+    margin-left: 3%;
+    margin-right: 3%;
+    border: 0.5px;
+    border-color: rgba(0,0,0,0.12);
+    border-style: solid;
+    border-radius: 3px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  }
+}
+
 .page{
   height: 50px;
   text-align: center;
+  margin-top: 50px;
 }
 
 .title {

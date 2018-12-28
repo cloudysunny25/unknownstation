@@ -25,8 +25,12 @@
   <body>
     <div class="container-fluid">
         <div class="row top">
-          <div class="offset-sm-8 col-sm-4">
+          <div class="offset-sm-6 col-sm-6">
             <div class="sign">
+              <span class="search">
+                <input type='text' id='keyword' class="keyword" placeholder="search" onkeyup="enter()">
+              </span>
+              <input type="button" id="searchbarBtn" value="search">
             {% if user.is_authenticated %}
               welcome, <b>{{user.username}}!</b>
               <a href="{% url 'unknownstation:write' %}" class="nounderline">New post</a> |
@@ -38,29 +42,35 @@
         </div>
 
       </div>
-      <div class="row intro">
-        <div class="offset-sm-3 col-sm-6 offset-sm-3">
-          <div class="">
-            <a href="{% url 'unknownstation:index' %}" class="nounderline"> <div id="blogtitle"><h1><b>unknown station</b></h1></div></a><br>
-            <div class="user_info">
-              {{ request.session.user_info.nickname }}
-              <br>
-              django 공부용 블로그입니다.
-            </div>
-            <div class="search">
-              <input type='text' id='keyword' class="keyword" placeholder="search" onkeyup="enter()">
-            </div>
-            <div class="tag">
-              tag
-            </div>
-          </div>
-        </div>
-
+      <div class="row search2">
+          <input type='text' id='keyword2' class="keyword2" placeholder="search" onkeyup="enter()">
       </div>
+
       <div class="row main">
       <!--  <div class="main">-->
 
-          <div class="col-md-12 col-sm-12">
+      <!--  <div class="offset-sm-3 col-sm-6 offset-sm-3">-->
+        <div class="col-md-2 col-sm-12 intro">
+          <div class="">
+            <a href="{% url 'unknownstation:index' %}" class="nounderline"> <div id="blogtitle"><h1><b>EGGCLOTHES</b></h1></div></a><br>
+            <div class="user_info">
+              <b>{{ request.session.user_info.nickname }}</b>
+              <br>
+              web programmer<br>
+              python,django,javascript<br>
+            </div>
+            <div class="menu">
+              <a href="{% url 'unknownstation:category'%}"><b>category</b></a> | 
+              <a href="{% url 'unknownstation:month'%}"><b>month</b></a>
+
+            </div>
+
+
+          </div>
+        </div>
+
+
+          <div class="col-md-10 col-sm-12">
             {% block content %}
             {% endblock %}
           </div>
@@ -74,13 +84,52 @@
       </div>
     </div><!-- container -->
   </body>
+
+  <!------------------------ script ------------------------------>
   <script type="text/javascript">
 
+    var searchbar = document.querySelector(".search");
+    var searchbar2 = document.querySelector(".search2");
+    searchbar.style.display="none";
+    searchbar2.style.display="none";
+    //desktop 기준
+    var mql = window.matchMedia("only screen and (min-width:768px) and (orientation:landscape)");
+    var searchbarBtn = document.getElementById("searchbarBtn");
+    var flag=false;
+    searchbarBtn.addEventListener("click",function(){
+
+      if(mql.matches){
+        searchbar2.style.display="none";
+        if(!flag){
+          searchbar.style.display="";
+          flag=true;
+        }else{
+          searchbar.style.display="none";
+          flag=false;
+        }
+      }else{
+        searchbar.style.display="none";
+        if(!flag){
+          searchbar2.style.display="";
+          flag=true;
+        }else{
+          searchbar2.style.display="none";
+          flag=false;
+        }
+      }
+    });
 
     function enter(){
-      var keyword = document.getElementById("keyword").value;
-      if (window.event.keyCode == 13){
-          location.href="{{request.ROOT_URLCONF}}/blog/byKeyword?keyword="+keyword+"&page=1"
+      var keyword = "";
+
+     if(mql.matches){
+        keyword = document.getElementById("keyword").value;
+      }else{
+        keyword = document.getElementById("keyword2").value;
+      }
+
+      if(window.event.keyCode == 13){
+          location.href="{{request.ROOT_URLCONF}}/blog/search?keyword="+keyword+"&page=1";
       }
     }
 
@@ -132,5 +181,12 @@
       submit = true;
       checkMarkdownPreview();
     }
+
+    function deletePost(){
+        if(confirm("Do you really want to delete this post?")){
+            document.getElementById("deleteForm").submit();
+        }
+
+      }
   </script>
 </html>
