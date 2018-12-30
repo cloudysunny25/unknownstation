@@ -3,7 +3,7 @@
 <div class="post">
   <form action="{% url 'unknownstation:update'  %}" id="write_form" method="post" >
     {% csrf_token %}
-    <h1>Update Post</h1>
+    <h4>Update Post</h4>
     <select name="category">
       <option value=""> 선택</option>
       {% if request.session.category_info %}
@@ -19,12 +19,12 @@
     <br>
     <input type ="text" name="title" value="{{ post_info.title }}" class="title_write">
     <br>
-    <textarea name="content" id="content" class="content_write">{{ post_info.content }}</textarea>
-    <input type="button" value="preview" id="tabchange">
+    <input type="button" value="preview" class="button-preview" id="tabchange">
+    <textarea name="content" id="content" class="content_write" onkeydown="resizeTextarea(this)" onkeydown="resizeTextarea(this)">{{ post_info.content }}</textarea>
     <div id="markdown"></div>
     <input type="hidden" name="content_markdown" id="content_markdown">
     <input type="hidden" name="post_id" value="{{ post_info.id }}">
-    <input type="button" value="update" onclick="write_form_submit()">
+  <div class="submit-area"><input type="button" value="update" class="button-default" onclick="write_form_submit()"></div>
   </form>
 </div>
 {% endblock %}

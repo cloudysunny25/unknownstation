@@ -2,7 +2,7 @@
 {% block content %}
 <div class="post">
   <p>{{ post_info.category.name }}</p>
-  <div class="title">{{ post_info.title }}</div>
+  <div class="title"><h3>{{ post_info.title }}</h3></div>
   <div class="date">{{ post_info.created_date | date:'Y.m.d.  H:i:s'}}</div>
   <div class="updatebutton">
     {% if user.is_authenticated %}
@@ -10,8 +10,8 @@
         {% csrf_token %}
         <input type="hidden" name="post_id" value="{{ post_info.id}}">
       </form>
-      <a href="{% url 'unknownstation:updateView' post_info.id %}">수정</a> |
-      <a href="#" onclick="deletePost();return false;">삭제</a>
+      <a href="{% url 'unknownstation:updateView' post_info.id %}"><span class="a-menu">수정</span></a> |
+      <a href="#" onclick="deletePost();return false;"><span class="a-menu">삭제</span></a>
     {% endif %}
   </div>
   <div class="content">{% autoescape off %}{{ post_info.content_markdown}}{% endautoescape %}</div>

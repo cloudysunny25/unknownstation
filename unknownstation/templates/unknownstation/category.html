@@ -1,10 +1,12 @@
 {% extends 'unknownstation/base.html' %}
 {% block content %}
 <div class="category">
-    <b>category</b><br>
+    <h4>category</h4><br>
 {% if categories %}
   {% for category in categories %}
-  <a href="{% url 'unknownstation:byCategory' category=category.name page=1 %}"> {{ category.name }} ({{category.count}})</a><br>
+  <a href="{% url 'unknownstation:byCategory' category=category.name page=1 %}">
+    {{ category.name }} ({{category.count}})
+  </a><br>
   {% endfor %}
 {% endif %}
 </div>

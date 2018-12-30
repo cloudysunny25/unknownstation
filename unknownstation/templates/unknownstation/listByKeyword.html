@@ -4,32 +4,37 @@
 
 {% if post_list %}
   <div class="page">
-  검색어 <b>{{ keyword }}</b>에 대해 <b>{{post_list.paginator.count}}</b>개의 포스트가 검색되었습니다.
+   <b>{{ keyword }}</b>: <b>{{post_list.paginator.count}}</b>
+   {% if post_list|length == 1 %} post
+   {% else %} posts
+   {% endif %}
   </div>
   {% for post in post_list %}
   <div class="post_review">
   <!--  <p>{{ post.category.name }}</p> -->
     <div class="preview_title"><b>{{ post.title }}</b></div>
-    <div class="preview_date">{{ post.reg_date | date:'Y.m.d'}}</div>
+    <div class="preview_date">{{ post.created_date | date:'Y.m.d'}}</div>
     <div class="preview_content">
-     {{ post.content_markdown |striptags |truncatechars_html:200 }}
+     {{ post.content_markdown |striptags |truncatechars_html:250 }}
     </div>
-     <a href="{% url 'unknownstation:detail' post.id %}"><div class="more">more</div></a>
+     <a href="{% url 'unknownstation:detail' post.id %}"><div class="a-menu" id="more">more</div></a>
   </div>
   {% endfor %}
 
   <div class="page">
     {% if post_list.has_previous%}
-      <a href="{% url 'unknownstation:byCategory' category_id=category.id page=post_list.previous_page_number %}">prev</a>
+      <a href="{% url 'unknownstation:byCategory' category_id=category.id page=post_list.previous_page_number %}"><span class="a-menu">prev</span></a>
     {% endif %}
       {{  post_list.number }} of {{  post_list.paginator.num_pages }}
     {% if post_list.has_next %}
-      <a href="{% url 'unknownstation:byCategory' category_id=category.id page=post_list.next_page_number %}">next</a>
+      <a href="{% url 'unknownstation:byCategory' category_id=category.id page=post_list.next_page_number %}"><span class="a-menu">next</span></a>
     {% endif %}
   </div>
 
 {% else %}
-검색어 <b>{{ keyword}}</b>에 해당하는 포스트가 없습니다.
+<div class="nocontent">
+No posts about "<b>{{ keyword}}</b>"
+</div>
 {% endif %}
 
 </div>

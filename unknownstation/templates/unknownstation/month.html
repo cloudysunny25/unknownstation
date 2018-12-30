@@ -1,15 +1,18 @@
 {% extends 'unknownstation/base.html' %}
 {% block content %}
 <div class="category">
-    <b>month</b><br>
+    <h4>month</h4><br>
 {% if year_list %}
   {% for year in year_list %}
     {{year}}<br>
     {% for month in month_list %}
       {% if year == month.year %}
-        <a href="{% url 'unknownstation:byMonth' year=month.year month=month.month page=1 %}"> {{month.month}} ({{month.count}})</a><br>
+      <ul></ul>
+        <a href="{% url 'unknownstation:byMonth' year=month.year month=month.month page=1 %}"> {{month.month}}월 ({{month.count}})</a>
       {% endif %}
     {% endfor %}
+    <br>
+    <br>
   {% endfor %}
 
 

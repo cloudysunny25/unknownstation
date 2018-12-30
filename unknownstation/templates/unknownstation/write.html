@@ -15,11 +15,11 @@
     <br>
     <input type ="text" name="title" class="title_write">
     <br>
-    <textarea name="content" class="content_write" id="content"></textarea>
-    <input type="button" value="preview" id="tabchange">
+    <input type="button" value="preview" class="button-preview" id="tabchange">
+    <textarea name="content" class="content_write" id="content" onkeydown="resizeTextarea(this)" onkeydown="resizeTextarea(this)"></textarea>
     <input type="hidden" name="content_markdown" id="content_markdown">
     <div id="markdown"></div>
-    <input type="button" value="등록" onclick="write_form_submit()">
+    <input type="button" value="publish" class="button-default" onclick="write_form_submit()">
 
   </form>
 
