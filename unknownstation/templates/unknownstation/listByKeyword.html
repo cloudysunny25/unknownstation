@@ -4,7 +4,7 @@
 
 {% if post_list %}
   <div class="page">
-   <b>{{ keyword }}</b>: <b>{{post_list.paginator.count}}</b>
+   <b><i>{{ keyword }}</i></b> : <b>{{post_list.paginator.count}}</b>
    {% if post_list|length == 1 %} post
    {% else %} posts
    {% endif %}
@@ -33,7 +33,7 @@
 
 {% else %}
 <div class="nocontent">
-No posts about "<b>{{ keyword}}</b>"
+No posts about <b><i>{{ keyword}}</i></b>
 </div>
 {% endif %}
 

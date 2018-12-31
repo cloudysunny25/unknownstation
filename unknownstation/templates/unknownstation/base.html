@@ -49,7 +49,7 @@
 
       </div>
       <div class="row search2">
-          <input type='text' id='keyword2' class="keyword2" placeholder="search" onkeyup="enter()">
+          <input type='text' id='keyword2' class="keyword2" onkeyup="enter()">
       </div>
 
       <div class="row main">
@@ -61,14 +61,16 @@
             <a href="{% url 'unknownstation:index' %}" class="nounderline"> <div id="blogtitle"><h1><b>EGG CLOTHES</b></h1></div></a><br>
             <div class="user_info">
               <b>{{ request.session.user_info.nickname }}</b>
-              <br>
+
               <span id="user_intro">
+                <br>
                 초보 웹개발자.<br>
                 java로 개발을 시작했고,<br>
                 python django, javascript<br>
                 공부중입니다.
+                  <br>
               </span>
-              <br>
+
             </div>
             <div class="menu">
               <a href="{% url 'unknownstation:category'%}"><img class="icon" src="{% static "assets/folder.png" %}" alt="category"></a> |

@@ -10,6 +10,7 @@ html,body {
 *:focus {
     outline: none;
 }
+
 .container-fluid {
   position: relative;
   min-height: 100%;
@@ -121,18 +122,8 @@ a:visited{
   border-bottom-color: #545454;
   border-bottom-width: 0.3px;
 }
-/* mobile version searchbar */
-.keyword2{
-  width:  100%;
-  margin-left: 3%;
-  margin-right: 3%;
-  background-color: transparent;
-  border-top-style: none;
-  border-left-style: none;
-  border-right-style: none;
-  border-bottom-color: #545454;
-  border-bottom-width: 0.3px;
-}
+
+
 .bottom {
   width: 100%;
  background-color: #545454;
@@ -153,12 +144,9 @@ a:visited{
 }
 
 .sign {
-  background:
+
 }
-input #keyword{
-  height: 30px;
-  background-color: #cccccc;
-}
+
 .menu{
   margin-top: 10px;
   text-align: center;
@@ -193,9 +181,40 @@ input #keyword{
   .category{
     padding:10%;
   }
+  .user_card{
+    display: none;
+  }
+  #searchbarBtn{
+    display: none;
+  }
+  .keyword2{
+    display: none;
+  }
+
 }
 
-@media only screen and (max-width:768px) and (orientation:portrait){
+.keyword2{
+  overflow: hidden;
+  display: block;
+  margin-top: 5px;
+  border:0.5px;
+  border-radius: 3px;
+  border-style:solid;
+  border-color: lightgray;
+  width:100%;
+  margin-left: 3%;
+  margin-right: 3%;
+  transition:all 0.5s ease-in-out;
+  height: 0px;
+  opacity: 0;
+}
+
+@media only screen and (max-width:768px) and (orientation:portrait)
+, only screen and (max-width:768px) and (orientation:landscape)
+,only (min-width:768px) and (orientation:portrait){
+  .keyword{
+    display:none;
+  }
   .post_review {
     padding: 20px;
     height: 200px;
@@ -224,7 +243,38 @@ input #keyword{
     text-align: center;
     margin-bottom: 80px;
   }
+  #user_intro{
+    display:none;
+  }
 }
+
+
+
+
+.user_card{
+  margin-top: 50px;
+  margin-bottom: 10px;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  width: auto;
+  min-height: 120px;
+/*  border: 0.5px;
+  border-color: rgba(0,0,0,0.12);
+  border-style: solid;
+  border-radius: 3px;
+  background-color: white;
+ box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+ transition: all 0.3s cubic-bezier(.25,.8,.25,1);*/
+ border-top: 0.5px;
+ border-top-style: dotted;
+ border-top-color: #545454;
+ font-size: 14px;
+ text-align: right;
+ word-wrap: break-word;
+ transition: all
+}
+
+
 .nocontent{
   padding-top: 10%;
   text-align: center;

@@ -1,15 +1,30 @@
-var searchbar = document.querySelector("#keyword");
+/*var searchbar = document.querySelector("#keyword");
 var searchbar2 = document.querySelector("#keyword2");
 searchbar.style.opacity="0";
 searchbar2.style.opacity="0";
 searchbar2.style.height="0";
-
+*/
 //desktop 기준
 var mql = window.matchMedia("only screen and (min-width:768px) and (orientation:landscape)");
+/*
 var searchbarBtn = document.getElementById("searchbarBtn");
-var flag=false;
+*/
+var search=false;
 searchbarBtn.addEventListener("click",function(){
+  var bar = document.getElementById("keyword2");
+  if(search){
+    bar.style.height="0px";
+    bar.style.opacity="0";
+    search=false;
+  }else{
+    bar.style.height="25px";
+    bar.style.opacity="1";
+    bar.placeholder=" search"
+    search=true;
+  }
 
+})
+/*
   if(mql.matches){
     searchbar2.style.opacity="0";
     searchbar2.style.height="0";
@@ -33,6 +48,7 @@ searchbarBtn.addEventListener("click",function(){
     }
   }
 });
+*/
 
 function getURL(){
   var url = document.location.href.split("/");
