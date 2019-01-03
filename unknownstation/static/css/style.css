@@ -16,7 +16,16 @@ html,body {
   min-height: 100%;
 
 }
-.button-default{
+.button-save{
+  border:0.5px;
+  border-style: solid;
+  border-color:#545454;
+  background-color: white;
+  border-radius: 2px;
+  color:#545454;
+  width: 100%;
+}
+.button-publish{
   border:0.5px;
   border-style: solid;
   border-color:#545454;
@@ -25,7 +34,8 @@ html,body {
   color:#F1E9DA;
   width: 100%;
 }
-.button-preview:hover{
+
+.button-preview:hover, .button-publish:hover, .button-save:hover{
   background-color: #74B560;
 }
 .button-preview{
@@ -36,9 +46,7 @@ html,body {
   border-radius: 2px;
   width: 100%;
 }
-.button-default:hover{
-  background-color: #74B560;
-}
+
 .submit-area{
   text-align: center;
 }
@@ -59,14 +67,23 @@ a:hover{
   color:#74B560
   text-decoration:  none !important
 }
+.a-menu{
+  font-size: 14px;
+}
 .a-menu:hover{
   color:#74B560;
+
 }
 a:visited{
   color: #545454;
   text-decoration:  none !important
 }
 
+.tag{
+  font-size: 12px;
+  background-color: #2E294E;
+  color: white;
+}
 .sign{
   text-align: right;
 }
@@ -150,6 +167,7 @@ a:visited{
 .menu{
   margin-top: 10px;
   text-align: center;
+
 }
 
 

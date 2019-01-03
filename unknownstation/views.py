@@ -12,7 +12,15 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+from .forms import LoginForm
 # Create your views here.
+
+
+def is_blog_owner(self):
+    blog = Blog.objects.get(id=2)
+    return self.request.user.username==blog.user.username
+
 
 def index(request):
     #get()은 하나의 결과값만 가져옴. 여러건을 가져올 땐 filter
@@ -20,7 +28,7 @@ def index(request):
     blog = Blog.objects.get(blogname='eggclothes')
     user = blog.user
     categories = Category.__list__(blog_id=2)
-    request.session['blog_info'] = {'id':blog.id, 'blogname':blog.blogname }
+    request.session['blog_info'] = {'id':blog.id, 'blogname':blog.blogname, 'user':{'username':user.username} }
     request.session['category_info'] = list(categories)
     request.session['user_info'] = {'nickname':user.username, 'id':user.id}
 
@@ -77,6 +85,10 @@ def update(request):
     post.content = request.POST['content']
     post.content_markdown = request.POST['content_markdown']
     post.category = Category.objects.get(id=request.POST['category'])
+    if request.POST['published']=='publish':
+        post.published=True
+    else:
+        post.published=False
     post.save()
     print(request.POST['content_markdown']+"???")
     categories = Category.__list__(request.session['blog_info']['id'])
@@ -95,8 +107,11 @@ def register(request):
     category = Category.objects.get(pk=request.POST['category'])
     user = User.objects.get(id=request.session.get('user_info')['id'])
     blog = Blog.objects.get(id=request.session.get('blog_info')['id'])
-    print(request.POST['content_markdown']+"???")
     post = Post(title=request.POST['title'], content=request.POST['content'], content_markdown = request.POST['content_markdown'], category=category, user=user, blog=blog)
+    if request.POST['published']=='publish':
+        post.published=True
+    else:
+        post.published=False
     post.save()
     categories = Category.__list__(request.session['blog_info']['id'])
     request.session['category_info'] = list(categories)
@@ -113,8 +128,8 @@ def __logout__(request):
 
 
 def auth(request):
-    nickname = request.POST['nickname']
-    password = request.POST['password']
+    nickname = request.POST.get('nickname')
+    password = request.POST.get('password')
     user = authenticate(request, username=nickname, password=password)
     if user is not None:
         login(request,user)

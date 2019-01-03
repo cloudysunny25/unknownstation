@@ -11,7 +11,9 @@
   {% for post in post_list %}
   <div class="post_review">
   <!--  <p>{{ post.category.name }}</p> -->
-    <div class="preview_title"><b>{{ post.title }}</b></div>
+    <div class="preview_title"><b>{{ post.title }}</b>
+      {% if not post.published %}<label class="tag">not published</label>{% endif %}
+    </div>
     <div class="preview_date">{{ post.created_date | date:'Y.m.d'}}</div>
     <div class="preview_content">
      {{ post.content_markdown |striptags |truncatechars_html:250 }}

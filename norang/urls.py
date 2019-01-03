@@ -23,5 +23,6 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path('blog/' ,include('unknownstation.urls')),
     re_path(r'^markdownx/', include('markdownx.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 
 ]

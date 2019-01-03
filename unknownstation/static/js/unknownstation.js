@@ -115,8 +115,9 @@ if(btn){
   }
 
 
-  function write_form_submit(){
+  function write_form_submit(flag){
     //markdown 최종 결과를 한번더 받아온 뒤 제출
+    document.getElementById("published").value = flag;
     submit = true;
     checkMarkdownPreview();
   }

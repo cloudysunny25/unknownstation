@@ -19,7 +19,17 @@
     <textarea name="content" class="content_write" id="content" onkeydown="resizeTextarea(this)" onkeydown="resizeTextarea(this)"></textarea>
     <input type="hidden" name="content_markdown" id="content_markdown">
     <div id="markdown"></div>
-    <input type="button" value="publish" class="button-default" onclick="write_form_submit()">
+    <input type="hidden" name="published" id="published">
+    <div class="row">
+      <div class="col-sm-6">
+          <input type="button" value="save" class="button-save" onclick="write_form_submit('save')">
+      </div>
+      <div class="col-sm-6">
+        <input type="button" value="publish" class="button-publish" onclick="write_form_submit('publish')">
+      </div>
+    </div>
+
+
 
   </form>
 

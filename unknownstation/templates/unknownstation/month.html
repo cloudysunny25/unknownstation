@@ -8,7 +8,8 @@
     {% for month in month_list %}
       {% if year == month.year %}
       <ul></ul>
-        <a href="{% url 'unknownstation:byMonth' year=month.year month=month.month page=1 %}"> {{month.month}}월 ({{month.count}})</a>
+        <a href="{% url 'unknownstation:byMonth' year=month.year month=month.month page=1 %}">
+          <div class="a-menu">{{month.month}}월 ({{month.count}})</div></a>
       {% endif %}
     {% endfor %}
     <br>

@@ -24,7 +24,14 @@
     <div id="markdown"></div>
     <input type="hidden" name="content_markdown" id="content_markdown">
     <input type="hidden" name="post_id" value="{{ post_info.id }}">
-  <div class="submit-area"><input type="button" value="update" class="button-default" onclick="write_form_submit()"></div>
+    <input type="hidden" name="published" id="published">
+    <div class="row">
+      <div class="col-sm-6">
+          <input type="button" value="save" class="button-save" onclick="write_form_submit('save')">
+      </div>
+      <div class="col-sm-6">
+        <input type="button" value="publish" class="button-publish" onclick="write_form_submit('publish')">
+      </div>
   </form>
 </div>
 {% endblock %}

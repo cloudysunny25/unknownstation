@@ -1,5 +1,8 @@
 from django.urls import include, path
 from . import views
+from django.contrib.auth import views as auth_views
+
+
 
 app_name = 'unknownstation'
 urlpatterns = [
@@ -8,7 +11,6 @@ urlpatterns = [
     path('detail/<int:post_id>/', views.detail, name='detail'),
     path('write/', views.write, name='write'),
     path('register/', views.register, name='register'),
-    path('login/', views.__login__, name='login'),
     path('auth/', views.auth, name='auth'),
     path('logout/', views.__logout__, name='logout'),
     path('updateView/<int:post_id>/', views.updateView, name='updateView'),
@@ -19,6 +21,5 @@ urlpatterns = [
     path('category/', views.category, name='category'),
     path('month/', views.month, name='month'),
     path('month/<int:year>/<int:month>/<int:page>', views.byMonth, name='byMonth'),
-
 
 ]

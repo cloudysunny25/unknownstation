@@ -38,11 +38,13 @@
 
               <img class="icon" id="searchbarBtn" src="{% static "assets/search.png" %}" alt="search">
             {% if user.is_authenticated %}
-            <!-- <b>{{user.username}}</b>-->
+             <b>hello, {{user.username}}! </b>
+             {% if user.username == request.session.blog_info.user.username %}
               <a href="{% url 'unknownstation:write' %}" class="nounderline"><span class="a-menu"> New post</span></a> |
+             {% endif %}
               <a href="{% url 'unknownstation:logout' %}" class="nounderline"><span class="a-menu">logout</span></a>
             {% else %}
-              <a href="{% url 'unknownstation:login' %}" class="nounderline"><span class="a-menu"> * </span></a>
+              <a href="{% url 'login' %}" class="nounderline"><span class="a-menu"> * </span></a>
             {% endif %}
           </div>
         </div>
