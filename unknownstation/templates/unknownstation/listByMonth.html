@@ -4,7 +4,7 @@
 
 {% if post_list %}
   <div class="page">
-  <b>{{ month_info.year }}-{{ month_info.month }}</b> : <b>{{month_info.count}}</b>
+  <b>{{ month_info.year }}-{{ month_info.month }}</b> : <b>{{post_list.paginator.count}}</b>
   {% if post_list|length == 1 %} post
   {% else %} posts
   {% endif %}

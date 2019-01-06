@@ -12,6 +12,7 @@ urlpatterns = [
     path('write/', views.write, name='write'),
     path('register/', views.register, name='register'),
     path('auth/', views.auth, name='auth'),
+    path('login/', views.__login__, name='login'),
     path('logout/', views.__logout__, name='logout'),
     path('updateView/<int:post_id>/', views.updateView, name='updateView'),
     path('update/', views.update, name='update'),
@@ -21,5 +22,6 @@ urlpatterns = [
     path('category/', views.category, name='category'),
     path('month/', views.month, name='month'),
     path('month/<int:year>/<int:month>/<int:page>', views.byMonth, name='byMonth'),
+    path('error/', views.error, name='error'),
 
 ]

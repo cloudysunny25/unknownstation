@@ -10,7 +10,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -38,13 +38,13 @@
 
               <img class="icon" id="searchbarBtn" src="{% static "assets/search.png" %}" alt="search">
             {% if user.is_authenticated %}
-             <b>hello, {{user.username}}! </b>
+             hello, <b>{{user.username}}! </b>
              {% if user.username == request.session.blog_info.user.username %}
               <a href="{% url 'unknownstation:write' %}" class="nounderline"><span class="a-menu"> New post</span></a> |
              {% endif %}
               <a href="{% url 'unknownstation:logout' %}" class="nounderline"><span class="a-menu">logout</span></a>
             {% else %}
-              <a href="{% url 'login' %}" class="nounderline"><span class="a-menu"> * </span></a>
+              <a href="{% url 'mylogin' %}" class="nounderline"><span class="a-menu"> * </span></a>
             {% endif %}
           </div>
         </div>

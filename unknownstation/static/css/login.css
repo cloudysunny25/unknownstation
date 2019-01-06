@@ -8,6 +8,13 @@
   padding:100px 0px;
 
 }
+
+.error{
+  color:red;
+}
+.submit{
+  width: 100%;
+}
 @media only screen and (min-width:768px) and (orientation:landscape){
   .container{
     margin: 0 auto;

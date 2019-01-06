@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404,render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from .models import User,Blog,Post,Category
 from django.views import generic
 from django.template import loader
@@ -13,13 +13,26 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.views import LoginView
 from .forms import LoginForm
+from django import forms
+
 # Create your views here.
 
+def getPublishedFilter(user):
+    blog = Blog.objects.get(blogname='eggclothes')
+    if user:
+        if user.username==blog.user.username:
+            return Post.objects.all()
+        else:
+            return Post.objects.filter(published=True)
+    else:
+        return Post.objects.filter(published=True)
 
-def is_blog_owner(self):
+
+def is_blog_owner(user):
     blog = Blog.objects.get(id=2)
-    return self.request.user.username==blog.user.username
+    return user.username==blog.user.username
 
 
 def index(request):
@@ -33,7 +46,8 @@ def index(request):
     request.session['user_info'] = {'nickname':user.username, 'id':user.id}
 
     #index data
-    paginator = Paginator(Post.objects.order_by('-created_date'), 5)
+    obj = getPublishedFilter(request.user).order_by('-created_date')
+    paginator = Paginator(obj,5)
     post_list = paginator.get_page(1)
     context = {
         'post_list' : post_list
@@ -42,8 +56,8 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 def postlist(request,page):
-    #index data
-    paginator = Paginator(Post.objects.order_by('-created_date'), 5)
+    obj = getPublishedFilter(request.user).order_by('-created_date')
+    paginator = Paginator(obj,5)
     if page is None:
         page = 1
 
@@ -57,13 +71,18 @@ def postlist(request,page):
 
 def detail(request, post_id):
     post = Post.objects.get(id=post_id)
+    if not post.published:
+        if not is_blog_owner(request.user):
+            raise Http404("Page Not Found.")
+    post.hit = post.hit+1
+    post.save()
     template = loader.get_template('unknownstation/detail.html')
     context = {
      'post_info':post,
     }
     return HttpResponse(template.render(context, request))
 
-@login_required
+@user_passes_test(is_blog_owner, redirect_field_name='go')
 def write(request):
 
     template = loader.get_template('unknownstation/write.html')
@@ -73,12 +92,12 @@ def write(request):
     #form = PostForm()
     return render(request, 'unknownstation/write.html',{'blog_info':blog_info, 'user_info':user_info})
 
-@login_required
+@user_passes_test(is_blog_owner,redirect_field_name='go')
 def updateView(request,post_id):
     post = Post.objects.get(id=post_id)
-    return render(request, 'unknownstation/update.html',{'post_info':post, })
+    return render(request, 'unknownstation/update.html',{'post_info':post, 'error':'/error'})
 
-@login_required
+@user_passes_test(is_blog_owner, redirect_field_name='go')
 def update(request):
     post = Post.objects.get(id=request.POST['post_id'])
     post.title = request.POST['title']
@@ -95,14 +114,14 @@ def update(request):
     request.session['category_info'] = list(categories)
     return HttpResponseRedirect(reverse('unknownstation:index'))
 
-@login_required
+@user_passes_test(is_blog_owner, redirect_field_name='go')
 def delete(request):
     post = Post.objects.get(id=request.POST['post_id'])
     post.delete()
     return HttpResponseRedirect(reverse('unknownstation:index'))
 
 
-@login_required
+@user_passes_test(is_blog_owner,redirect_field_name='go')
 def register(request):
     category = Category.objects.get(pk=request.POST['category'])
     user = User.objects.get(id=request.session.get('user_info')['id'])
@@ -119,8 +138,18 @@ def register(request):
 
 
 def __login__(request):
-    #form = LoginForm()
-    return render(request, 'unknownstation/login.html')
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        next = request.POST.get("next")
+        print(form.is_valid())
+        print(next)
+        if form.is_valid():
+            return HttpResponseRedirect()
+    else:
+        form = LoginForm()
+        next = request.META.get("HTTP_REFERER")
+    return render(request, 'registration/login.html',{'form':form, 'next':next})
+
 
 def __logout__(request):
     logout(request)
@@ -144,7 +173,7 @@ def byCategory(request, category, page):
     for c in request.session.get('category_info'):
         if c['name']==category:
             category_info = c
-    post_list = Post.objects.filter(category_id=category_info['id']).order_by('-created_date')
+    post_list = getPublishedFilter(request.user).filter(category_id=category_info['id']).order_by('-created_date')
     paginator = Paginator(post_list, 5)
     post_list = paginator.get_page(page)
     return render(request, 'unknownstation/listByCategory.html', {'post_list':post_list, 'category_info':category_info})
@@ -152,13 +181,16 @@ def byCategory(request, category, page):
 def byKeyword(request):
     keyword = request.GET['keyword']
     page = request.GET['page']
-    post_list = Post.objects.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)).order_by('-created_date')
+    post_list = getPublishedFilter(request.user).filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)).order_by('-created_date')
     paginator = Paginator(post_list, 5)
     page = paginator.get_page(page)
     return render(request, 'unknownstation/listByKeyword.html',{'post_list':page, 'keyword':keyword})
 
 def category(request):
-    categories = Category.__list__(blog_id=2)
+    c = Category.objects.all()
+    categories = list()
+    for category in c:
+        categories.append({'name':category.name, 'count':getPublishedFilter(request.user).filter(category_id=category.id).count()})
     return render(request,'unknownstation/category.html',{'categories':categories})
 
 def month(request):
@@ -167,13 +199,19 @@ def month(request):
     year_list = list()
     for date in dates:
         year_list.append(date.year)
-        mrow = {'year':date.year,'month':date.month,'count':Post.objects.filter(created_date__year=date.year,created_date__month=date.month).count()}
+        mrow = {'year':date.year,'month':date.month,'count':getPublishedFilter(request.user).filter(created_date__year=date.year,created_date__month=date.month).count()}
         month_list.append(mrow)
     return render(request, 'unknownstation/month.html',{'year_list':year_list,'month_list':month_list})
 
 def byMonth(request, year, month, page):
-    post_list = Post.objects.filter(created_date__year=year,created_date__month=month).order_by('-created_date')
+    post_list = getPublishedFilter(request.user).filter(created_date__year=year,created_date__month=month).order_by('-created_date')
     paginator = Paginator(post_list, 5)
     page = paginator.get_page(page)
     mrow = {'year':year,'month':month,'count':Post.objects.filter(created_date__year=year,created_date__month=month).count()}
     return render(request,'unknownstation/listByMonth.html',{'post_list':page, 'month_info':mrow})
+
+def error(request):
+    return render(request, 'unknownstation/error.html')
+
+class MyLoginView(LoginView):
+    form_class = LoginForm

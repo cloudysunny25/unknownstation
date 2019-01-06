@@ -5,7 +5,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -21,19 +21,29 @@
           <h4>Login</h4>
         </div>
         <div id="content">
-          <form action="{% url 'login'  %}" method="post" > 
+          {% if form.errors %}
+            <p class="error">Your username and password didn't match. Please try again.</p>
+          {% endif %}
+          <form action="{% url 'mylogin'  %}" method="post" >
             {% csrf_token %}
             <div class="form-group">
-              <label for="nickname">username</label>
-              <!--<input type="text" name="nickname" class="form-control" placeholder="username"><br>-->
+              <label for="username">username</label>
               {{form.username}}
             </div>
             <div class="form-group">
               <label for="password">password</label>
-              <input type="password" name="password" class="form-control" placeholder="password"><br>
+              {{form.password}}
             </div>
             <div>
-                <input type="submit" class="btn btn-default" value="login">
+              {% if request.GET.go %}
+              {{request.GET.go}}
+               <input type="hidden" name="next" value="{{request.GET.go}}">
+              {% elif next %}
+                <input type="hidden" name="next" value="{{next}}">
+              {% else %}
+                <input type="hidden" name="next" value="{{request.META.HTTP_REFERER}}">
+              {% endif %}
+                <input type="submit" class="btn btn-default submit" value="login">
             </div>
             <div id="footer"></div>
           </form>

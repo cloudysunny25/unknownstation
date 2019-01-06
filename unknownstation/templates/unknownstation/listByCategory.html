@@ -4,7 +4,7 @@
 
 {% if post_list %}
   <div class="page">
-  <b>{{ category_info.name }}</b> : <b>{{category_info.count}}</b>
+  <b>{{ category_info.name }}</b> : <b>{{post_list.paginator.count}}</b>
   {% if post_list|length == 1 %} post
   {% else %} posts
   {% endif %}
