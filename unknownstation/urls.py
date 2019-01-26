@@ -25,3 +25,5 @@ urlpatterns = [
     path('error/', views.error, name='error'),
 
 ]
+
+handler404 = 'unknownstation.views.error'

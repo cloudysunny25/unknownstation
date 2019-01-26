@@ -3,22 +3,16 @@
 <html>
   <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ request.session.blog_info.blogname|upper }} </title>
+    <title>eggkim's blog</title>
 
   <!--  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/markdown.css' %}">
     <style>
-     * { font-family : 'NanumSquare', 'Sans-serif'; }
+     * { font-family : 'Spoqa Han Sans', 'Sans-serif'; }
     </style>
     <link rel="apple-touch-icon" sizes="120x120" href="{% static 'favicon/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
@@ -29,11 +23,8 @@
     <meta name="theme-color" content="#ffffff">
   </head>
   <body>
-    <div class="container-fluid">
-        <div class="row top">
-          <div class="offset-sm-6 col-sm-6">
+        <div class="top">
             <div class="sign">
-
                 <input type='text' id='keyword' class="keyword" placeholder="search" onkeyup="enter()">
 
               <img class="icon" id="searchbarBtn" src="{% static "assets/search.png" %}" alt="search">
@@ -46,24 +37,14 @@
             {% else %}
               <a href="{% url 'mylogin' %}" class="nounderline"><span class="a-menu"> * </span></a>
             {% endif %}
-          </div>
         </div>
-
-      </div>
-      <div class="row search2">
-          <input type='text' id='keyword2' class="keyword2" onkeyup="enter()">
-      </div>
-
-      <div class="row main">
-      <!--  <div class="main">-->
-
-      <!--  <div class="offset-sm-3 col-sm-6 offset-sm-3">-->
-        <div class="col-md-2 col-sm-12 intro">
-          <div class="">
-            <a href="{% url 'unknownstation:index' %}" class="nounderline"> <div id="blogtitle"><h1><b>EGG CLOTHES</b></h1></div></a><br>
+        <div class="search2">
+            <input type='text' id='keyword2' class="keyword2" onkeyup="enter()">
+        </div>
+        <div class="intro">
+            <a href="{% url 'unknownstation:index' %}" class="nounderline"> <div id="blogtitle"><b>BLUE means BLUE</b></div></a><br>
             <div class="user_info">
-              <b>{{ request.session.user_info.nickname }}</b>
-
+              <b id="nickname">{{ request.session.user_info.nickname }}</b>
               <span id="user_intro">
                 <br>
                 초보 웹개발자.<br>
@@ -72,32 +53,27 @@
                 공부중입니다.
                   <br>
               </span>
-
             </div>
             <div class="menu">
-              <a href="{% url 'unknownstation:category'%}"><img class="icon" src="{% static "assets/folder.png" %}" alt="category"></a> |
-              <a href="{% url 'unknownstation:month'%}"><img class="icon" src="{% static "assets/calendar.png" %}" alt="month"></a>
+              <a href="{% url 'unknownstation:category'%}">category</a> <span id="pipe">&nbsp;|&nbsp; </span>
+              <a href="{% url 'unknownstation:month'%}">month</a>
               <!--https://www.flaticon.com/free-icon/calendar_157297#term=calendar&page=9&position=47-->
             </div>
-
-
-          </div>
-        </div>
-
-
-          <div class="col-md-10 col-sm-12">
-            {% block content %}
-            {% endblock %}
-          </div>
-
-      <!--  </div>-->
-    </div>
-      <div class="row">
-        <div class="bottom">
-          © 2018 EGG KIM all rights reserved.<br>
         </div>
       </div>
-    </div><!-- container -->
+
+      <div class="main">
+            {% block content %}
+            {% endblock %}
+
+            <div class="bottom">
+              © 2018 EGG KIM all rights reserved.<br>
+            </div>
+    </div>
+
+
+
+
   </body>
 
   <!------------------------ script ------------------------------>

@@ -1,13 +1,11 @@
-@import url('//cdn.rawgit.com/young-ha/webfont-archive/master/css/NanumSquare.css');
+@import
+url('//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css');
 
 html,body {
     margin:0;
     padding:0;
     height:100%;
-    background-color: #F1E9DA;
-    color: #545454;
 }
-
 
 @media only screen and (min-width:768px) and (orientation:landscape){
   .post_review {
@@ -31,6 +29,7 @@ html,body {
     padding-bottom: 30px;
     padding-left: 4%;
     padding-right: 4%;
+    background-color:#fff;
     /*height: auto;
     overflow: auto;*/
   }
@@ -46,10 +45,11 @@ html,body {
   .keyword2{
     display: none;
   }
-
+  #blogtitle{
+    font-size: 60px;
+    color:#15ED8F;
+  }
 }
-
-
 
 @media only screen and (max-width:768px) and (orientation:portrait)
 , only screen and (max-width:768px) and (orientation:landscape)
@@ -77,6 +77,7 @@ html,body {
     padding-bottom: 30px;
     padding-left: 1%;
     padding-right: 1%;
+    background-color:#fff;
     /*height: auto;
     overflow: auto;*/
   }
@@ -88,43 +89,47 @@ html,body {
   #user_intro{
     display:none;
   }
+  #nickname{
+      display:none;
+  }
+  #blogtitle{
+    font-size: 40px;
+  }
 }
 
 *:focus {
     outline: none;
 }
 
-.container-fluid {
-  position: relative;
-  min-height: 100%;
-
-}
 .button-save{
   border:0.5px;
   border-style: solid;
-  border-color:#545454;
+  border-color:gray;
   background-color: white;
   border-radius: 2px;
-  color:#545454;
   width: 100%;
 }
 .button-publish{
   border:0.5px;
   border-style: solid;
-  border-color:#545454;
-  background-color: #545454;
+  border-color:#15ED8F;
+  background-color: #15ED8F;
   border-radius: 2px;
-  color:#F1E9DA;
+  color:#FFF;
   width: 100%;
 }
 
-.button-preview:hover, .button-publish:hover, .button-save:hover{
-  background-color: #74B560;
+.button-preview:hover, .button-save:hover{
+  background-color: #15ED8F;
 }
+ .button-publish:hover{
+   background-color: #03b769;
+   border-color: #03b769;
+ }
 .button-preview{
   border:0.5px;
   border-style: solid;
-  border-color:#545454;
+  border-color:gray;
   background-color: transparent;
   border-radius: 2px;
   width: 100%;
@@ -137,29 +142,28 @@ html,body {
   min-height: 100%;
   overflow: auto;
   padding-bottom: 100px;/*footer 하단 고정해도 내용 가려지지 않도록...*/
+  position: relative;
 }
 a{
-  color: #545454;
+  color:#000;
   text-decoration: none !important;
 }
 a:link{
-  color: #545454;
+  color:#000;
   text-decoration:  none !important
 }
 a:hover{
-  color:#74B560
+  color:#15ED8F;
   text-decoration:  none !important
 }
 .a-menu{
   font-size: 14px;
 }
-.a-menu:hover{
-  color:#74B560;
 
-}
-a:visited{
-  color: #545454;
-  text-decoration:  none !important
+
+#pipe{
+  color:#BBD5ED;
+  font-weight: 900;
 }
 
 .tag{
@@ -169,26 +173,8 @@ a:visited{
 }
 .sign{
   text-align: right;
+  padding:5px;
 }
-
-.intro{
-  padding-left: 4%;
-  min-height: 100px;
-  /*padding-top: 30px;
-  padding-bottom: 30px;
-  margin-bottom: 30px;*/
-
-/*  border-top: 0.2px;
-  border-top: solid;
-  border-top-color: #2E294E;
-  border-bottom: 0.2px;
-  border-bottom: solid;
-  border-bottom-color: #2E294E;
-  margin-top: 10px;
-  margin-bottom: 10px;*/
-
-}
-
 
 .user_info{text-align: center;}
 .search{
@@ -197,6 +183,7 @@ a:visited{
 }
 .search2{
   transition:  all 0.5s ease-in-out;
+  padding:3px;
 }
 .tag{text-align: center;}
 #user_intro{
@@ -204,7 +191,8 @@ a:visited{
   font-size: 14px;}
 #blogtitle{
   text-align: center;
-  color: #545454;
+  color:#15ED8F;
+  font-weight: 400;
 }
 .icon{
   width: 20px;
@@ -212,7 +200,7 @@ a:visited{
   background-color: transparent;
 }
 .icon:hover{
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 .keyword{
   background-color: transparent;
@@ -223,13 +211,12 @@ a:visited{
   border-bottom-width: 0.3px;
 }
 
-
 .bottom {
   width: 100%;
- background-color: #545454;
- color: #F1E9DA;
+ background-color: #fff;
+ color: #000;
  font-size: 14px;
- height: 100px;
+ height: 50px;
  text-align: center;
  padding:10px;
  position: absolute;
@@ -237,24 +224,10 @@ a:visited{
  left: 0;
 }
 
-.index{
-  /*min-height: 100%;
-  overflow: auto;*/
-
-}
-
-.sign {
-
-}
-
 .menu{
   margin-top: 10px;
   text-align: center;
-
 }
-
-
-
 
 .keyword2{
   overflow: hidden;
@@ -265,16 +238,12 @@ a:visited{
   border-style:solid;
   border-color: lightgray;
   width:100%;
-  margin-left: 3%;
-  margin-right: 3%;
+  padding-left: 5px;
+  padding-right: 5px;
   transition:all 0.5s ease-in-out;
   height: 0px;
   opacity: 0;
 }
-
-
-
-
 
 .user_card{
   margin-top: 50px;
@@ -282,7 +251,7 @@ a:visited{
   padding-top: 3%;
   padding-bottom: 3%;
   width: auto;
-  min-height: 120px;
+/*  min-height: 120px;*/
 /*  border: 0.5px;
   border-color: rgba(0,0,0,0.12);
   border-style: solid;
@@ -308,7 +277,7 @@ a:visited{
 .page{
   height: 50px;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 5%;
 }
 
 .title {

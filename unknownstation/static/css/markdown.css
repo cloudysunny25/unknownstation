@@ -198,7 +198,7 @@ body input {
 }
 
 body a {
-  color: #4078c0;
+  color: #000;
   text-decoration: none;
 }
 
@@ -599,8 +599,10 @@ body pre {
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: #f7f7f7;
-  border-radius: 3px;
+  background-color: #f8fafb;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: #e1e4e6;
 }
 
 body pre code {

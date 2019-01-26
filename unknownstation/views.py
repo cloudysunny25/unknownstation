@@ -16,8 +16,12 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.views import LoginView
 from .forms import LoginForm
 from django import forms
+import logging
+from datetime import datetime
 
 # Create your views here.
+
+logger = logging.getLogger('django')
 
 def getPublishedFilter(user):
     blog = Blog.objects.get(blogname='eggclothes')
@@ -70,16 +74,22 @@ def postlist(request,page):
 
 
 def detail(request, post_id):
-    post = Post.objects.get(id=post_id)
-    if not post.published:
-        if not is_blog_owner(request.user):
-            raise Http404("Page Not Found.")
-    post.hit = post.hit+1
-    post.save()
-    template = loader.get_template('unknownstation/detail.html')
-    context = {
-     'post_info':post,
-    }
+
+    try:
+        post = Post.objects.get(id=post_id)
+        logger.info(datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" [post detail] "+str(post_id)+"/"+post.title)
+        if not post.published:
+            if not is_blog_owner(request.user):
+                raise Http404("Page Not Found.")
+        post.hit = post.hit+1
+        post.save()
+        template = loader.get_template('unknownstation/detail.html')
+        context = {
+         'post_info':post,
+        }
+    except:
+        logger.debug(datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" [post detail 404] post_id:"+ str(post_id))
+        raise Http404('Post does not exist.')
     return HttpResponse(template.render(context, request))
 
 @user_passes_test(is_blog_owner, redirect_field_name='go')
@@ -180,6 +190,7 @@ def byCategory(request, category, page):
 
 def byKeyword(request):
     keyword = request.GET['keyword']
+    logger.info(datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" [search post] keyword:"+keyword)
     page = request.GET['page']
     post_list = getPublishedFilter(request.user).filter(Q(title__icontains=keyword) | Q(content__icontains=keyword)).order_by('-created_date')
     paginator = Paginator(post_list, 5)
@@ -210,8 +221,8 @@ def byMonth(request, year, month, page):
     mrow = {'year':year,'month':month,'count':Post.objects.filter(created_date__year=year,created_date__month=month).count()}
     return render(request,'unknownstation/listByMonth.html',{'post_list':page, 'month_info':mrow})
 
-def error(request):
-    return render(request, 'unknownstation/error.html')
+def error(request,*args, **kwargs):
+    return render(request, 'unknownstation/404.html')
 
 class MyLoginView(LoginView):
     form_class = LoginForm

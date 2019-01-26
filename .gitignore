@@ -5,3 +5,4 @@ norangv
 /static
 .DS_Store
 norang/settings.py
+*.log
