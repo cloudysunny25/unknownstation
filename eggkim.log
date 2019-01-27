@@ -1057,3 +1057,18 @@ Not Found: /favicon.ico
 "GET /blog/category/ HTTP/1.1" 200 3167
 "GET /blog/category/talk/1 HTTP/1.1" 200 3713
 "GET /static/css/style.css HTTP/1.1" 304 0
+"GET /blog/ HTTP/1.1" 200 4208
+"GET /static/unknownstation/css/style.css HTTP/1.1" 200 6702
+"GET /static/unknownstation/css/markdown.css HTTP/1.1" 200 12253
+"GET /static/unknownstation/js/unknownstation.js HTTP/1.1" 200 4481
+"GET /static/unknownstation/assets/search.png HTTP/1.1" 200 2928
+"GET /static/unknownstation/favicon/favicon-32x32.png HTTP/1.1" 200 748
+"GET /static/unknownstation/favicon/site.webmanifest HTTP/1.1" 200 287
+"GET /static/unknownstation/favicon/favicon-16x16.png HTTP/1.1" 200 876
+"GET /blog/category/ HTTP/1.1" 200 3302
+"GET /blog/month/ HTTP/1.1" 200 3385
+"GET /blog/ HTTP/1.1" 200 4208
+"GET /accounts/login HTTP/1.1" 200 2013
+"GET /static/unknownstation/css/login.css HTTP/1.1" 200 975
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2533
