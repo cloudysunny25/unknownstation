@@ -1,7 +1,7 @@
 {% extends 'unknownstation/base.html' %}
 {% block content %}
 <div class="post">
-  <p>{{ post_info.category.name }}</p>
+  <span>{{ post_info.category.name }}</span>
   <div class="title"><h3>{{ post_info.title }}</h3></div>
   <div class="date">{{ post_info.created_date | date:'Y.m.d.  H:i:s'}}</div>
   <div class="updatebutton">
@@ -16,7 +16,7 @@
   </div>
   <div class="content">{% autoescape off %}{{ post_info.content_markdown}}{% endautoescape %}</div>
   <div class="user_card">
-    <b>eggkim</b> <br>
+    <span>eggkim</span> <br>
     초보 개발자.<br>
     java로 개발을 시작했고 <br>현재 python, javascript 공부중입니다.
   </div>

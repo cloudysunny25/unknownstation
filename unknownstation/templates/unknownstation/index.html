@@ -16,7 +16,7 @@
     </div>
     <div class="preview_date">{{ post.created_date | date:'Y.m.d'}}</div>
     <div class="preview_content">
-     {{ post.content_markdown |striptags |truncatechars_html:250 }}
+     {{ post.content_markdown |striptags }}
     </div>
      <a href="{% url 'unknownstation:detail' post.id %}"><div class="a-menu" id="more">more</div></a>
 
