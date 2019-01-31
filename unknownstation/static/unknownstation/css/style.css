@@ -8,10 +8,11 @@ html,body {
     color: #41463D;
 }
 
+
 @media only screen and (min-width:768px) and (orientation:landscape){
   .post_review {
     padding: 20px;
-    height: 200px;
+  /*  height: 200px;*/
     margin-top: :20px;
     margin-bottom: 20px;
     margin-left: 4%;
@@ -55,12 +56,16 @@ html,body {
 @media only screen and (max-width:768px) and (orientation:portrait)
 , only screen and (max-width:768px) and (orientation:landscape)
 ,only (min-width:768px) and (orientation:portrait){
+  input {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  }
   .keyword{
     display:none;
   }
   .post_review {
     padding: 20px;
-    height: 200px;
+    /*height: 200px;*/
     margin-top: :20px;
     margin-bottom: 20px;
     margin-left: 2%;
@@ -146,19 +151,20 @@ html,body {
   position: relative;
 }
 a{
-  color:#88958D;
+  color:gray;
   text-decoration: none !important;
 }
 a:link{
-  color:#88958D;
+  color:gray;
   text-decoration:  none !important
 }
 a:hover{
-  color:#15ED8F;
+  color:gray;
   text-decoration:  none !important
 }
 .a-menu{
   font-size: 14px;
+  text-align: center;
 }
 
 
@@ -268,7 +274,7 @@ a:hover{
  font-size: 14px;
  text-align: right;
  word-wrap: break-word;
- transition: all
+ transition: all;
 }
 
 
@@ -288,15 +294,14 @@ a:hover{
   font-size: 25px;
 }
 
-.post span:not(.a-menu){
-  color: #88958D;
+.highlight-main{
+  color: gray;
   border-bottom: 3px solid #CDC1FF;
 }
 
 .date{
   text-align: right;
-  border-bottom: 0.5px;
-  border-bottom-style: solid;
+  border-bottom: 1px solid lightgray;
   font-size: 15px;
 }
 
@@ -349,7 +354,7 @@ a:hover{
 
 .preview_content{
   width: auto;
-  height: 5.6em;
+  height: 4.8em;
   display: block;
   text-overflow: ellipsis;
   overflow: hidden;

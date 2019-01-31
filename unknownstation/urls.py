@@ -20,8 +20,8 @@ urlpatterns = [
     path('category/<str:category>/<int:page>', views.byCategory, name='byCategory'),
     path('search/', views.byKeyword, name='byKeyword'),
     path('category/', views.category, name='category'),
-    path('month/', views.month, name='month'),
-    path('month/<int:year>/<int:month>/<int:page>', views.byMonth, name='byMonth'),
+    path('archive/', views.archive, name='archive'),
+    path('archive/<int:year>/<int:month>/<int:page>', views.byMonth, name='byMonth'),
     path('error/', views.error, name='error'),
 
 ]

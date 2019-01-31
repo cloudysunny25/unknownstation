@@ -1,7 +1,8 @@
 {% extends 'unknownstation/base.html' %}
 {% block content %}
+
 <div class="post">
-  <span>{{ post_info.category.name }}</span>
+  <span class="highlight-main">{{ post_info.category.name }}</span>
   <div class="title"><h3>{{ post_info.title }}</h3></div>
   <div class="date">{{ post_info.created_date | date:'Y.m.d.  H:i:s'}}</div>
   <div class="updatebutton">
@@ -14,9 +15,9 @@
       <a href="#" onclick="deletePost();return false;"><span class="a-menu">삭제</span></a>
     {% endif %}
   </div>
-  <div class="content">{% autoescape off %}{{ post_info.content_markdown}}{% endautoescape %}</div>
+  <div class="content markdown-body">{% autoescape off %}{{ post_info.content_markdown}}{% endautoescape %}</div>
   <div class="user_card">
-    <span>eggkim</span> <br>
+    <span class="highlight-main">eggkim</span> <br>
     초보 개발자.<br>
     java로 개발을 시작했고 <br>현재 python, javascript 공부중입니다.
   </div>

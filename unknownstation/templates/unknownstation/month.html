@@ -1,17 +1,18 @@
 {% extends 'unknownstation/base.html' %}
 {% block content %}
 <div class="category">
-    <h4>month</h4><br>
+  <div class="a-menu">  <h4>archive</h4><br></div>
 {% if year_list %}
   {% for year in year_list %}
-    {{year}}<br>
+    <div class="a-menu">{{year}}<div class="a-menu"></div><br>
+    <div class="a-menu">
     {% for month in month_list %}
       {% if year == month.year %}
-      <ul></ul>
         <a href="{% url 'unknownstation:byMonth' year=month.year month=month.month page=1 %}">
-          <div class="a-menu">{{month.month}}월 ({{month.count}})</div></a>
+            {{month.month}}월 ({{month.count}})</a>
       {% endif %}
     {% endfor %}
+    </div>
     <br>
     <br>
   {% endfor %}

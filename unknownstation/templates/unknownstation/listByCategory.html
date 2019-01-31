@@ -24,11 +24,11 @@
 
   <div class="page">
     {% if post_list.has_previous%}
-      <a href="{% url 'unknownstation:byCategory' category=category.name page=post_list.previous_page_number %}"><span class="a-menu">prev</span></a>
+      <a href="{% url 'unknownstation:byCategory' category=category_info.name page=post_list.previous_page_number %}"><span class="a-menu">prev</span></a>
     {% endif %}
       {{  post_list.number }} of {{  post_list.paginator.num_pages }}
     {% if post_list.has_next %}
-      <a href="{% url 'unknownstation:byCategory' category=category.name page=post_list.next_page_number %}"><span class="a-menu">next</span></a>
+      <a href="{% url 'unknownstation:byCategory' category=category_info.name page=post_list.next_page_number %}"><span class="a-menu">next</span></a>
     {% endif %}
   </div>
 

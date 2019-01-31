@@ -80,7 +80,8 @@ def detail(request, post_id):
         logger.info(datetime.now().strftime('%Y-%m-%d %H:%M:%S')+" [post detail] "+str(post_id)+"/"+post.title)
         if not post.published:
             if not is_blog_owner(request.user):
-                raise Http404("Page Not Found.")
+                #raise Http404("Page Not Found.")
+                return render(request, 'unknownstation/404.html')
         post.hit = post.hit+1
         post.save()
         template = loader.get_template('unknownstation/detail.html')
@@ -204,7 +205,7 @@ def category(request):
         categories.append({'name':category.name, 'count':getPublishedFilter(request.user).filter(category_id=category.id).count()})
     return render(request,'unknownstation/category.html',{'categories':categories})
 
-def month(request):
+def archive(request):
     dates = Post.objects.dates('created_date','month')
     month_list = list()
     year_list = list()
