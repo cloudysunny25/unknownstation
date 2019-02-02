@@ -4,6 +4,13 @@ searchbar.style.opacity="0";
 searchbar2.style.opacity="0";
 searchbar2.style.height="0";
 */
+/*google Analytics*/
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-133675976-1');
+
 //desktop 기준
 var mql = window.matchMedia("only screen and (min-width:768px) and (orientation:landscape)");
 /*
@@ -17,13 +24,15 @@ searchbarBtn.addEventListener("click",function(){
     bar.style.opacity="0";
     search=false;
   }else{
-    bar.style.height="25px";
+    bar.style.height="35px";
     bar.style.opacity="1";
     bar.placeholder=" search"
     search=true;
   }
 
 })
+
+
 /*
   if(mql.matches){
     searchbar2.style.opacity="0";

@@ -5,7 +5,7 @@
     {% csrf_token %}
     <h4>New post</h4>
     <select name="category">
-      <option value="">category</option>
+    <!-- <option value="">category</option>-->
       {% if request.session.category_info %}
         {% for category in request.session.category_info %}
           <option value="{{ category.id }}"> {{ category.name}}</option>
