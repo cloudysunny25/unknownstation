@@ -53,13 +53,18 @@ html,body {
   }
 }
 
+input,textarea {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
 @media only screen and (max-width:768px) and (orientation:portrait)
 , only screen and (max-width:768px) and (orientation:landscape)
 ,only (min-width:768px) and (orientation:portrait){
-  input {
-  -webkit-appearance: none;
-  -webkit-border-radius: 0;
-  }
+
   .keyword{
     display:none;
   }
@@ -107,6 +112,9 @@ html,body {
     outline: none;
 }
 
+.btn {
+  height: 25px;
+}
 .button-save{
   border:0.5px;
   border-style: solid;
@@ -125,7 +133,7 @@ html,body {
   width: 100%;
 }
 
-.button-preview:hover, .button-save:hover{
+ .button-preview:hover, .button-save:hover{
   background-color: #15ED8F;
 }
  .button-publish:hover{
@@ -145,6 +153,7 @@ html,body {
   text-align: center;
 }
 .main{
+  width: 100%;
   min-height: 100%;
   overflow: auto;
   padding-bottom: 100px;/*footer 하단 고정해도 내용 가려지지 않도록...*/
@@ -214,6 +223,7 @@ a:hover{
   transform: scale(1.1);
 }
 .keyword{
+  font-size: 14px;
   background-color: transparent;
   border-top-style: none;
   border-left-style: none;
@@ -229,7 +239,6 @@ a:hover{
  font-size: 14px;
  height: 50px;
  text-align: center;
- padding:10px;
  position: absolute;
  bottom: 0;
  left: 0;
@@ -241,6 +250,7 @@ a:hover{
 }
 
 .keyword2{
+  font-size: 14px;
   overflow: hidden;
   display: block;
   margin-top: 5px;
@@ -321,7 +331,7 @@ a:hover{
 }
 
 .title_write {
-  min-width: 100%;
+  width: 100%;
   font-size: 16px;
   margin-top: 5px;
   margin-bottom: 5px;
