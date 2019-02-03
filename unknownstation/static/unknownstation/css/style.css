@@ -6,6 +6,7 @@ html,body {
     padding:0;
     height:100%;
     color: #41463D;
+    font-size: 100%;
 }
 
 
@@ -364,7 +365,7 @@ a:hover{
 
 .preview_content{
   width: auto;
-  height: 4.8em;
+  height: 6em;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -372,9 +373,10 @@ a:hover{
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: normal;
-  line-height: 1.2em;
-  padding-top: 10px;
+  line-height: 1.5em;
+  /*padding-top: 10px;*/
   font-size: 14px;
+  -webkit-text-size-adjust:none;
 }
 
 #more{
