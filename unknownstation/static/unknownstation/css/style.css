@@ -367,6 +367,8 @@ a:hover{
   height: 4.8em;
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  word-wrap:break-word;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: normal;
